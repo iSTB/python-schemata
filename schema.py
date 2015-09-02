@@ -8,19 +8,19 @@ __email__ = "jack.mckayfletcher@plymouth.ac.uk"
 __status__ = "Production"
 import itertools
 
+
+
 class schema(object):
-	"""
-	The schema class
-	"""
-	def __init__(self, string = ''):
+
+	def __init__(self, string = '', alphabet=[]):
 		self.string = string
-		self.alphabet = []
+		self.alphabet = alphabet
 
 	def __str__(self):
 		return self.string
 
 	def __repr__(self):
-		return "Schema of length " + str(self.get_length())
+		return "Schema: " + self.string
 
 	
 	def get_length(self):
@@ -29,6 +29,7 @@ class schema(object):
 
 	def get_anti_order(self):
 		return self.string.count('*')
+
 
 	def get_def_length(self):
 		#TODO write this.
@@ -41,34 +42,12 @@ class schema(object):
 		self.string = string 
 
 	def expansion(self):
-		""" 
-		Expands the schema.
-		Note: The alphabet of the schema needs to be set first, use set_schema().
-
-		Example:
-		>>>s = schemata.schema('1*0')
-		>>>s.set_alphabet(['1','0'])
-		>>>s.expansion()
-		>>>['110','101']
-		"""
-		
-		if self.alphabet == []:
-			raise ValueError('Alphabet not set, use set_alphabet()')
-			return None
-
-		expanded_set = []
-
-
-
+		#Todo	
+		return -1
+	
 
 
 def __all_eq_lens(xs):
-	"""
-	Checks if all items in a list are of the same length.
-
-	Keyword arguments	
-	"""
-
 	if len(xs) == 1 or len(xs) == 0:
 		return True
 	
@@ -83,11 +62,6 @@ def __all_eq_lens(xs):
 			break
 	return all_eq
 
-
-def join(s1,s2):
-	pass	
-
-
 def complete(base):
 	new = []
 	for pair in itertools.product(base, repeat=2):
@@ -99,8 +73,9 @@ def complete(base):
 		return base + ['']
 
 	else: return base+findschema1(new)
+	
 
-
+#class schemata(self,schemata=[],alphabet=[]):
 	
 
 		

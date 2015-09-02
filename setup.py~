@@ -9,7 +9,7 @@ setup(
     py_modules = ['schemata'],
     url = 'https://github.com/iSTB/python-schemata',
     license = 'LICENSE.txt',
-    description = 'Python library for all things schemata related',
+    description = 'Python library for all things schemata related'
     long_description = open('README').read(),
     install_requires=['itertools'],
 )

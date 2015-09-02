@@ -8,9 +8,10 @@ __email__ = "jack.mckayfletcher@plymouth.ac.uk"
 __status__ = "Production"
 import itertools
 
+
 class schema(object):
 	"""
-	The schema class
+	TODO
 	"""
 	def __init__(self, string = ''):
 		self.string = string
@@ -20,7 +21,7 @@ class schema(object):
 		return self.string
 
 	def __repr__(self):
-		return "Schema of length " + str(self.get_length())
+		return "Schema of length " + self.get_length()
 
 	
 	def get_length(self):
@@ -42,33 +43,15 @@ class schema(object):
 
 	def expansion(self):
 		""" 
-		Expands the schema.
-		Note: The alphabet of the schema needs to be set first, use set_schema().
-
-		Example:
-		>>>s = schemata.schema('1*0')
-		>>>s.set_alphabet(['1','0'])
-		>>>s.expansion()
-		>>>['110','101']
+		Expands a schema
 		"""
 		
 		if self.alphabet == []:
 			raise ValueError('Alphabet not set, use set_alphabet()')
-			return None
-
-		expanded_set = []
-
-
-
+			print 'Hey'
 
 
 def __all_eq_lens(xs):
-	"""
-	Checks if all items in a list are of the same length.
-
-	Keyword arguments	
-	"""
-
 	if len(xs) == 1 or len(xs) == 0:
 		return True
 	
