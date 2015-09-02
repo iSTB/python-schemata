@@ -1,9 +1,9 @@
-__author__ = "Jack Fletcher"
+__author__ = "Jack McKay Fletcher"
 __copyright__ = "Copyright 2015, Plymouth University "
 __credits__ = ["Thomas Wenneker"]
 __license__ = "GPL"
 __version__ = "0.0.1"
-__maintainer__ = "Jack Fletcher"
+__maintainer__ = "Jack McKay Fletcher"
 __email__ = "jack.mckayfletcher@plymouth.ac.uk"
 __status__ = "Production"
 import itertools
@@ -43,7 +43,7 @@ class schema(object):
 	def expansion(self):
 		""" 
 		Expands the schema.
-		Note: The alphabet of the schema needs to be set first, use set_schema().
+		Note: The alphabet of the schema needs to be set first, use set_alphabet().
 
 		Example:
 		>>>s = schemata.schema('1*0')
@@ -53,11 +53,11 @@ class schema(object):
 		"""
 		
 		if self.alphabet == []:
-			raise ValueError('Alphabet not set, use set_alphabet()')
+			raise ValueError('exansion() cannot be called when the alphabet not set, use set_alphabet()')
 			return None
 
 		expanded_set = []
-
+			
 
 
 
@@ -66,10 +66,34 @@ def __all_eq_lens(xs):
 	"""
 	Checks if all items in a list are of the same length.
 
-	Keyword arguments	
+	Keyword arguments:
+
+	xs -- a list whose elements are of the same type and have the method len()	
 	"""
 
-	if len(xs) == 1 or len(xs) == 0:
+	if len(xs) == 0:
+		raise ValueError("__all_eq_lens() cannot be called on the empty list")
+
+	list_type = type(xs[0])
+	same_type = True
+
+	for x in xs:
+		if type(x) != list_type:
+			same_type = False
+			break 
+
+	if same_type == False:
+		raise ValueError("__all_eq_lens() can only be called on a list whose elements are of the same type")
+
+
+
+	try:
+		len(xs[0])
+	except Exception:
+		raise ValueError("__all_eq_lens() can only be called on a list whose elements have len()")
+
+
+	if len(xs) == 1:
 		return True
 	
 	lens = map(len,xs)
