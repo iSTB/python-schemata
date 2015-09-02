@@ -20,7 +20,7 @@ class schema(object):
 		return self.string
 
 	def __repr__(self):
-		return "Schema of length " + str(self.get_length())
+		return self.string
 
 	
 	def get_length(self):
