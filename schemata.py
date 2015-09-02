@@ -15,6 +15,8 @@ class schema(object):
 	def __init__(self, string = ''):
 		self.string = string
 		self.alphabet = []
+		
+
 
 	def __str__(self):
 		return self.string
@@ -108,8 +110,23 @@ def __all_eq_lens(xs):
 	return all_eq
 
 
-def join(s1,s2):
-	pass	
+def __check_type(x):
+	"""
+	Checks if a variable  x is a schema or string.
+	"""
+
+	s = schema()
+
+	if type(x) == type(s) or type(x) == str:
+		return True
+
+	return False
+
+
+def join(s1,s2):	
+	if type(s1) == str:
+		schem1 = schema(s1)
+
 
 
 def complete(base):
