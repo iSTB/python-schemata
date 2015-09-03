@@ -15,14 +15,25 @@ class schema(object):
 	def __init__(self, string = ''):
 		self.string = string
 		self.alphabet = []
-		
-
 
 	def __str__(self):
 		return self.string
 
 	def __repr__(self):
 		return self.string
+
+
+	def __ge__(self,other):
+
+		if type(other) != type(self):
+			raise TypeError("Cannot call >= on type " + type(self) +" and " + type(other))
+		
+		return join(self,other) == self
+
+
+	def __eq__(self,other):
+		return self.string == other.string 
+
 
 	
 	def get_length(self):
@@ -40,7 +51,23 @@ class schema(object):
 		return self.get_length() - self.get_anti_order()
 
 	def set_string(self,string):
+
+		if type(x) != str:
+			raise ValueError("set_string() must take a str as input")
+
 		self.string = string 
+
+	def set_alphabet(self,alpha):
+		if type(alpha) != list:
+			raise ValueError("set_alphabet only can take be a list of chars or strings as inputs" ) 
+
+		for char in alpha:
+			if type(char) != str:		
+				raise ValueError("set_alphabet only can take be a list of chars or strings as inputs" ) 
+
+
+		self.alphabet = alpha
+
 
 	def expansion(self):
 		""" 
@@ -60,9 +87,6 @@ class schema(object):
 
 		expanded_set = []
 			
-
-
-
 
 def __all_eq_lens(xs):
 	"""
@@ -87,8 +111,6 @@ def __all_eq_lens(xs):
 	if same_type == False:
 		raise ValueError("__all_eq_lens() can only be called on a list whose elements are of the same type")
 
-
-
 	try:
 		len(xs[0])
 	except Exception:
@@ -112,7 +134,7 @@ def __all_eq_lens(xs):
 
 def __check_type(x):
 	"""
-	Checks if a variable  x is a schema or string.
+	Checks if a variable x is of type schema or string.
 	"""
 
 	s = schema()
@@ -124,8 +146,35 @@ def __check_type(x):
 
 
 def join(s1,s2):	
+	if __check_type(s1) != True:
+		raise ValueError(str(s1) + " not of type string or schema")
+	
+	if __check_type(s2) != True:
+		raise ValueError(str(s2) + " not of type string or schema")
+
 	if type(s1) == str:
-		schem1 = schema(s1)
+		s1 = schema(s1)
+
+	if type(s2) == str:
+		s2 = schema(s2)
+
+	if s1.get_length() != s2.get_length():
+		if s1.string != '' and s2.string != '': 
+			raise ValueError("join can only be performed on schema or strings of the same length")
+
+	new = ''
+
+	if s1.string == '':
+		return s2
+	if s2.string == '':
+		return s1
+	
+	for i in xrange(len(s1.string)):
+		if s1.string[i] == s2.string[i]:
+			new +=s1.string[i] 
+		else:
+			new+='*'
+	return schema(new)	
 
 
 
