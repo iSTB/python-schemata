@@ -1,0 +1,86 @@
+schemata.py:12:5: F401 'nx' imported but unused
+schemata.py:51:20: E231 missing whitespace after ','
+schemata.py:53:60: E203 whitespace before ':'
+schemata.py:54:74: E225 missing whitespace around operator
+schemata.py:54:80: E501 line too long (100 > 79 characters)
+schemata.py:55:1: W293 blank line contains whitespace
+schemata.py:56:25: E231 missing whitespace after ','
+schemata.py:59:5: E303 too many blank lines (2)
+schemata.py:59:20: E231 missing whitespace after ','
+schemata.py:60:1: W293 blank line contains whitespace
+schemata.py:61:60: E203 whitespace before ':'
+schemata.py:62:74: E225 missing whitespace around operator
+schemata.py:62:80: E501 line too long (100 > 79 characters)
+schemata.py:63:1: W293 blank line contains whitespace
+schemata.py:64:25: E231 missing whitespace after ','
+schemata.py:67:5: E303 too many blank lines (2)
+schemata.py:67:20: E231 missing whitespace after ','
+schemata.py:70:9: E303 too many blank lines (2)
+schemata.py:70:60: E203 whitespace before ':'
+schemata.py:71:74: E225 missing whitespace around operator
+schemata.py:71:80: E501 line too long (100 > 79 characters)
+schemata.py:72:1: W293 blank line contains whitespace
+schemata.py:75:43: W291 trailing whitespace
+schemata.py:76:1: W293 blank line contains whitespace
+schemata.py:81:9: E265 block comment should start with '# '
+schemata.py:82:18: W291 trailing whitespace
+schemata.py:87:24: E231 missing whitespace after ','
+schemata.py:89:17: F821 undefined name 'x'
+schemata.py:92:29: W291 trailing whitespace
+schemata.py:94:26: E231 missing whitespace after ','
+schemata.py:96:80: E501 line too long (99 > 79 characters)
+schemata.py:96:98: E202 whitespace before ')'
+schemata.py:96:100: W291 trailing whitespace
+schemata.py:99:34: W291 trailing whitespace
+schemata.py:100:80: E501 line too long (103 > 79 characters)
+schemata.py:100:102: E202 whitespace before ')'
+schemata.py:100:104: W291 trailing whitespace
+schemata.py:103:9: E303 too many blank lines (2)
+schemata.py:106:5: E303 too many blank lines (2)
+schemata.py:107:4: W291 trailing whitespace
+schemata.py:109:80: E501 line too long (83 > 79 characters)
+schemata.py:117:1: W293 blank line contains whitespace
+schemata.py:119:80: E501 line too long (105 > 79 characters)
+schemata.py:122:9: F841 local variable 'expanded_set' is assigned to but never used
+schemata.py:123:1: W293 blank line contains whitespace
+schemata.py:131:79: W291 trailing whitespace
+schemata.py:143:18: W291 trailing whitespace
+schemata.py:145:18: E712 comparison to False should be 'if cond is False:' or 'if not cond:'
+schemata.py:146:80: E501 line too long (108 > 79 characters)
+schemata.py:151:80: E501 line too long (98 > 79 characters)
+schemata.py:154:5: E303 too many blank lines (2)
+schemata.py:156:1: W293 blank line contains whitespace
+schemata.py:157:19: E231 missing whitespace after ','
+schemata.py:182:12: E231 missing whitespace after ','
+schemata.py:182:17: W291 trailing whitespace
+schemata.py:183:25: E712 comparison to True should be 'if cond is not True:' or 'if not cond:'
+schemata.py:185:1: W293 blank line contains whitespace
+schemata.py:186:25: E712 comparison to True should be 'if cond is not True:' or 'if not cond:'
+schemata.py:196:5: E303 too many blank lines (2)
+schemata.py:196:10: E221 multiple spaces before operator
+schemata.py:199:10: E221 multiple spaces before operator
+schemata.py:201:10: E221 multiple spaces before operator
+schemata.py:203:1: W293 blank line contains whitespace
+schemata.py:205:80: E501 line too long (94 > 79 characters)
+schemata.py:208:5: E303 too many blank lines (2)
+schemata.py:212:19: E225 missing whitespace around operator
+schemata.py:212:24: W291 trailing whitespace
+schemata.py:214:16: E225 missing whitespace around operator
+schemata.py:215:23: W291 trailing whitespace
+schemata.py:218:12: E231 missing whitespace after ','
+schemata.py:220:25: E712 comparison to True should be 'if cond is not True:' or 'if not cond:'
+schemata.py:222:1: W293 blank line contains whitespace
+schemata.py:223:25: E712 comparison to True should be 'if cond is not True:' or 'if not cond:'
+schemata.py:233:5: E303 too many blank lines (2)
+schemata.py:235:10: E225 missing whitespace around operator
+schemata.py:241:27: W291 trailing whitespace
+schemata.py:242:80: E501 line too long (94 > 79 characters)
+schemata.py:246:19: E225 missing whitespace around operator
+schemata.py:247:14: W291 trailing whitespace
+schemata.py:250:41: E225 missing whitespace around operator
+schemata.py:259:1: E303 too many blank lines (3)
+schemata.py:263:29: E231 missing whitespace after ','
+schemata.py:269:9: E701 multiple statements on one line (colon)
+schemata.py:272:1: W293 blank line contains whitespace
+schemata.py:273:1: W293 blank line contains whitespace
+schemata.py:273:1: W391 blank line at end of file
