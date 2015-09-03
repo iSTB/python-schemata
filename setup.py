@@ -9,6 +9,7 @@ setup(
     packages = ['schemata'],
     url = 'https://github.com/iSTB/python-schemata',
     license = 'LICENSE.txt',
+    keywords=['schemata', 'schema', 'genetic algorithms', 'GAs', 'complete lattice', 'meet', 'join'],
     description = 'Python library for all things schemata related',
     long_description = open('README').read(),
     install_requires=['itertools'],
