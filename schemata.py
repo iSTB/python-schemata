@@ -17,29 +17,52 @@ class schema(object):
 		self.alphabet = []
 
 	def __str__(self):
+		if self.string == '':
+			return "''"
+
 		return self.string
 
 	def __repr__(self):
+
+		if self.string == '':
+			return "''"
+		
 		return self.string
 
 
+	def __getitem__(self,index):
+		return self.string[index]
+
+
+	def __len__(self):
+		return len(self.string)
+
 	def __ge__(self,other):
 
-		if type(other) != type(self):
-			raise TypeError("Cannot call >= on type " + type(self) +" and " + type(other))
+		if type(other) != type(self) and type(other) != str :
+			raise TypeError("Cannot call >= on type " + str(type(self)) +" and " + str(type(other)))
 		
 		return join(self,other) == self
 
 
+	def __le__(self,other):
+		
+		if type(other) != type(self) and type(other) != str :
+			raise TypeError("Cannot call <= on type " + str(type(self)) +" and " + str(type(other)))
+		
+		return meet(self,other) == self
+
+
 	def __eq__(self,other):
+
+
+		if type(other) != type(self) and type(other) != str :
+			raise TypeError("Cannot call == on type " + str(type(self)) +" and " + str(type(other)))
+		
+		if type(other) == str:
+			return self.string == other
 		return self.string == other.string 
-
-
 	
-	def get_length(self):
-		return len(self.string)	
-
-
 	def get_anti_order(self):
 		return self.string.count('*')
 
@@ -158,23 +181,67 @@ def join(s1,s2):
 	if type(s2) == str:
 		s2 = schema(s2)
 
-	if s1.get_length() != s2.get_length():
-		if s1.string != '' and s2.string != '': 
-			raise ValueError("join can only be performed on schema or strings of the same length")
+
+	if s1  == s2:
+		return s1
+
+	if s1  == '':
+		return s2
+	if s2  == '':
+		return s1
+	
+	if len(s1) != len(s2):
+		raise ValueError("join can only be performed on schema or strings of the same length")
+
 
 	new = ''
 
-	if s1.string == '':
-		return s2
-	if s2.string == '':
-		return s1
-	
-	for i in xrange(len(s1.string)):
-		if s1.string[i] == s2.string[i]:
-			new +=s1.string[i] 
+	for i in xrange(len(s1)):
+		if s1[i] == s2[i]:
+			new +=s1[i] 
 		else:
 			new+='*'
 	return schema(new)	
+
+
+def meet(s1,s2):
+
+	if __check_type(s1) != True:
+		raise ValueError(str(s1) + " not of type string or schema")
+	
+	if __check_type(s2) != True:
+		raise ValueError(str(s2) + " not of type string or schema")
+
+	if type(s1) == str:
+		s1 = schema(s1)
+
+	if type(s2) == str:
+		s2 = schema(s2)
+
+
+	if s1 == s2:
+		return s1
+	if s1== '':
+		return s1
+
+	if s2 == '':
+		return s2
+
+	if len(s1) != len(s2): 
+		raise ValueError("join can only be performed on schema or strings of the same length")
+	new = ''
+	for i in xrange(len(s1)):
+		if s1[i] == s2[i]:
+			new +=s1[i]
+		else: 
+			if s1[i] == '*' and s2[i] != '*':
+				new += s2[i]
+			if s2[i] == '*' and s1[i] !='*':
+				new += s1[i]
+
+	if len(new) != len(s1):
+			return schema()
+	return schema(new)
 
 
 
