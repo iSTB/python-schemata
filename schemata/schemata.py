@@ -15,6 +15,12 @@ except ImportError:
                       "drawing functionality for this package, "
                       "please install networkx.")
 
+try:
+    import pylab
+except ImportError:
+    raise ImportError("pylab not installed on this machine. To enable "
+                      "drawing functionality for this package, "
+                      "please pylab.")
 
 class schema(object):
 
@@ -84,14 +90,15 @@ class schema(object):
     def get_order(self):
         return self.get_length() - self.get_anti_order()
 
-    def set_string(self,string):
+    def set_string(self, string):
 
         if type(x) != str:
             raise ValueError("set_string() must take a str as input")
 
         self.string = string 
 
-    def set_alphabet(self,alpha):
+    def set_alphabet(self, alpha):
+ 
         if type(alpha) != list:
             raise ValueError("set_alphabet only can take be a list of chars or strings as inputs" ) 
 
@@ -121,7 +128,6 @@ class schema(object):
 
         expanded_set = []
             
-
 def __all_eq_lens(xs):
     """
     Checks if all items in a list are of the same length.
@@ -270,29 +276,70 @@ def complete(base):
 
 
 
-def is_lower_n(x,y,xs):
+def is_lower_n(s1,s2,xs):
     
     """
     Returns true of x is a lower neighbourgh of y in xs.
     """
 
+    if __check_type(s1) != True:
+        raise ValueError(str(s1) + " not of type string or schema")
+    
+    if __check_type(s2) != True:
+        raise ValueError(str(s2) + " not of type string or schema")
 
+    if type(s1) == str:
+        s1 = schema(s1)
+
+    if type(s2) == str:
+        s2 = schema(s2)
     ln = True
-    if x == y:
-        return False
 
-    new = [i for i in xs if i != x and i != y]
-    if x >= y:
+    if s1 >= s2:
         return False
     else:
+        new = [i for i in xs if s1 != i and s2 != i]
         for i in new:
-            if i >= x and i <= y:
+            if i >= s1 and i <= s2:
                 ln =False
                 break
     
     return ln
-def get_lower_ns():
-    pass
+
+
+def get_lower_ns(s,ss):
+
+    if __check_type(s) != True:
+        raise ValueError(str(s) + " not of type string or schema")
+    
+
+    if type(s) == str:
+        s = schema(s)
+
+    #gets the set of lower neighbours of y in xs.
+    lns = []
+    for s1 in ss:
+        if is_lower_n(s1,s,ss):
+            lns.append(s1)
+        
+    return lns
+
+
+def draw_hasse(ss):
+
+    """ 
+    draws a hasse diagram of for a given set of schema ss. 
+    """   
+    G = nx.Graph()
+    for s in ss:
+        lns = get_lower_ns(s,ss)
+
+    
+        for ln in lns:
+            G.add_edge(s,ln)
+
+    nx.draw(G)
+    pylab.show()
 
     
  
