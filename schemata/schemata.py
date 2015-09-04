@@ -48,27 +48,27 @@ class schema(object):
 
         return len(self.string)
 
-    def __ge__(self,other):
+    def __ge__(self, other):
 
-        if type(other) != type(self) and type(other) != str :
-            raise TypeError("Cannot call >= on type " + str(type(self)) +" and " + str(type(other)))
+        if type(other) != type(self) and type(other) != str:
+            raise TypeError("Cannot call >= on type " + str(type(self)) +
+                            " and " + str(type(other)))
+
+        return join(self, other) == self
+
+    def __le__(self, other):
+
+        if type(other) != type(self) and type(other) != str:
+            raise TypeError("Cannot call <= on type " + str(type(self)) +
+                            " and " + str(type(other)))
         
-        return join(self,other) == self
+        return meet(self, other) == self
 
 
-    def __le__(self,other):
-        
-        if type(other) != type(self) and type(other) != str :
-            raise TypeError("Cannot call <= on type " + str(type(self)) +" and " + str(type(other)))
-        
-        return meet(self,other) == self
+    def __eq__(self, other):
 
-
-    def __eq__(self,other):
-
-
-        if type(other) != type(self) and type(other) != str :
-            raise TypeError("Cannot call == on type " + str(type(self)) +" and " + str(type(other)))
+        if type(other) != type(self) and type(other) != str:
+            raise TypeError("Cannot call == on type " + str(type(self)) + " and " + str(type(other)))
         
         if type(other) == str:
             return self.string == other
@@ -268,6 +268,31 @@ def complete(base):
 
     else: return base+complete(new)
 
+
+
+def is_lower_n(x,y,xs):
+    
+    """
+    Returns true of x is a lower neighbourgh of y in xs.
+    """
+
+
+    ln = True
+    if x == y:
+        return False
+
+    new = [i for i in xs if i != x and i != y]
+    if x >= y:
+        return False
+    else:
+        for i in new:
+            if i >= x and i <= y:
+                ln =False
+                break
+    
+    return ln
+def get_lower_ns():
+    pass
 
     
  
