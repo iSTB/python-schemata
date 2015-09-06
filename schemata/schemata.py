@@ -308,7 +308,10 @@ def is_lower_n(s1,s2,xs):
 
 
 def get_lower_ns(s,ss):
+    """
+    Gets all lower neighbours of s in ss
 
+    """
     if __check_type(s) != True:
         raise ValueError(str(s) + " not of type string or schema")
     
