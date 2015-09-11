@@ -310,18 +310,23 @@ def is_lower_n(s1,s2,xs):
     if __check_type(s2) != True:
         raise ValueError(str(s2) + " not of type string or schema")
 
-
+    if s1 not in xs or s2 not in xs:
+            
+        raise ValueError("given inputs not in given set")
 
 
     ln = True
 
+    if s1 == s2:
+        return False
 
-
-    for x in xs:
-        print type(x)
     if join(s1, s2) == s1:
         print join(s1,s2)
         return False
+   
+    if meet(s1,s2) == '' and s1 != '':
+        return False
+
     else:
         new = [i for i in xs if s1 != i and s2 != i]
         for i in new:
