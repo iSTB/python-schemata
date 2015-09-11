@@ -181,8 +181,27 @@ def __check_type(x):
 
     if type(x) == type(s) or type(x) == str:
         return True
-
     return False
+
+
+def __to_schema(xs):
+
+
+    if type(xs) == str:
+            return schema(xs)
+
+    schem = schema()
+
+    if type(xs) == list:
+        new = []
+        for x in xs:
+            if type(x) == type(schem):
+                new.append(x)
+
+            else:
+                new.append(schema(x))
+
+    return new
 
 
 def join(s1,s2):    
@@ -261,8 +280,11 @@ def meet(s1,s2):
     return schema(new)
 
 
-
 def complete(base):
+    return __to_schema(__complete(base))
+
+
+def __complete(base):
     new = []
     for pair in itertools.product(base, repeat=2):
         if pair[0] != pair[1]:
@@ -288,19 +310,23 @@ def is_lower_n(s1,s2,xs):
     if __check_type(s2) != True:
         raise ValueError(str(s2) + " not of type string or schema")
 
-    if type(s1) == str:
-        s1 = schema(s1)
 
-    if type(s2) == str:
-        s2 = schema(s2)
+
+
     ln = True
 
-    if s1 >= s2:
+
+
+    for x in xs:
+        print type(x)
+    if join(s1, s2) == s1:
+        print join(s1,s2)
         return False
     else:
         new = [i for i in xs if s1 != i and s2 != i]
         for i in new:
-            if i >= s1 and i <= s2:
+            print i
+            if join(s1,i) == i and meet(s2,i) ==i:
                 ln =False
                 break
     
