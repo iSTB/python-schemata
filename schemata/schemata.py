@@ -87,6 +87,13 @@ class schema(object):
         #TODO write this.
         return -1           
 
+    def get_top(self):
+        """
+        Returns the miximal possible element assosiated with this schema
+        """
+        top = ''
+        for i in xrange(len(self)):
+            top += '*'
     def get_order(self):
         return self.get_length() - self.get_anti_order()
 
@@ -297,8 +304,45 @@ def __complete(base):
     else: return base+complete(new)
 
 
-
 def is_lower_n(s1,s2,xs):
+
+    if __check_type(s1) != True:
+        raise ValueError(str(s1) + " not of type string or schema")
+    
+    if __check_type(s2) != True:
+        raise ValueError(str(s2) + " not of type string or schema")
+
+    if s1 not in xs or s2 not in xs:
+            
+        raise ValueError("given inputs not in given set")
+
+    if type(s1) == str:
+        s1 = schema(s1)
+
+    if type(s2) == str:
+        s2 = schema(s2)
+
+    
+    xs = __to_schema(xs)
+
+    if ((s1 <= s2) == False) and ((s2 <= s1)==False):
+        return False #Case when s1 and s2 are not compareable
+
+    if s1 >= s2:
+        return False #When s1 is bigger than s2 then s1 cannot be a lower neighbour of s2
+
+
+    new = [x for x in xs if x != s1 and x != s2]
+    print new    
+    for i in new:
+        if i >= s1 and i <= s2: 
+            return False
+            break
+
+    return True
+
+
+def is_lower_n1(s1,s2,xs):
     
     """
     Returns true of x is a lower neighbourgh of y in xs.
@@ -326,6 +370,7 @@ def is_lower_n(s1,s2,xs):
    
     if meet(s1,s2) == '' and s1 != '':
         return False
+
 
     else:
         new = [i for i in xs if s1 != i and s2 != i]
@@ -370,6 +415,12 @@ def draw_hasse(ss):
 
     
         for ln in lns:
+            if ln == '':
+                ln = 'e'
+
+            if s == '': 
+                s = 'e'
+                
             G.add_edge(s,ln)
 
     nx.draw(G)
