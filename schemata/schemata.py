@@ -22,7 +22,6 @@ except ImportError:
                       "drawing functionality for this package, "
                       "please pylab.")
 
-
 class schema(object):
 
     """
@@ -30,8 +29,15 @@ class schema(object):
     """
     def __init__(self, string=''):
 
-        self.string = string
-        self.alphabet = []
+        if type(string) == type(self):
+            self.string = string.string
+            self.alphabet = string.alphabet 
+            
+        else:
+            self.string = string
+            self.alphabet = []
+
+
 
     def __str__(self):
 
@@ -95,7 +101,6 @@ class schema(object):
         return self.string.count('*')
 
     def get_def_length(self):
-
 
         start = 0
         last = 0
@@ -319,6 +324,27 @@ def meet(s1,s2):
             return schema()
     return schema(new)
 
+def supremum(xs):
+
+    if xs  == []:
+        return schema()
+    current = xs[0]
+    for string in xs:
+        current = join(current,string)
+    
+    return current
+
+def infimum(xs):
+
+    if xs == []:
+        return schema()
+
+    current = xs[0]
+
+    for string in xs:
+        current = meet(current,string)
+
+    return current
 
 def complete(base):
     """
@@ -333,7 +359,6 @@ def complete(base):
 
 
     return __to_schema(__complete(base))
-
 
 def __complete(base):
     new = []
