@@ -22,6 +22,7 @@ except ImportError:
                       "drawing functionality for this package, "
                       "please pylab.")
 
+
 class schema(object):
 
     """
@@ -67,34 +68,67 @@ class schema(object):
         if type(other) != type(self) and type(other) != str:
             raise TypeError("Cannot call <= on type " + str(type(self)) +
                             " and " + str(type(other)))
-        
-        return meet(self, other) == self
 
+        return meet(self, other) == self
 
     def __eq__(self, other):
 
         if type(other) != type(self) and type(other) != str:
-            raise TypeError("Cannot call == on type " + str(type(self)) + " and " + str(type(other)))
-        
+            raise TypeError("Cannot call == on type " + str(type(self)) +
+                            " and " + str(type(other)))
+
         if type(other) == str:
             return self.string == other
-        return self.string == other.string 
-    
+        return self.string == other.string
+
     def get_anti_order(self):
+
+        """
+        Returns the anti order of the current schema.
+
+        Example:
+
+        >>> s = schema(1**0**)
+        >>> s.get_anti_order()
+        >>> 
+        """
         return self.string.count('*')
 
     def get_def_length(self):
-        #TODO write this.
-        return -1           
+
+
+        start = 0
+        last = 0
+
+        for i in range(len(self)):
+            if self[i] != '*':
+                start = i
+                break
+
+        for i in reversed(range(len(self))):
+            if self[i] != '*':
+                last = i
+                break
+        return last - start
 
     def get_top(self):
         """
-        Returns the miximal possible element assosiated with this schema
+        Returns the maximal possible element assosiated with this schema
         """
         top = ''
         for i in xrange(len(self)):
             top += '*'
     def get_order(self):
+        """
+        Returns the order of the current schema.
+
+        Example:
+        >>> s = schema.(1***10)
+        >>> s.get_order()
+        >>> 3
+
+        """
+
         return self.get_length() - self.get_anti_order()
 
     def set_string(self, string):
@@ -123,10 +157,10 @@ class schema(object):
         Note: The alphabet of the schema needs to be set first, use set_alphabet().
 
         Example:
-        >>>s = schemata.schema('1*0')
-        >>>s.set_alphabet(['1','0'])
-        >>>s.expansion()
-        >>>['110','101']
+        >>> s = schemata.schema('1*0')
+        >>> s.set_alphabet(['1','0'])
+        >>> s.expansion()
+        >>> ['110','101']
         """
         
         if self.alphabet == []:
@@ -261,7 +295,6 @@ def meet(s1,s2):
     if type(s2) == str:
         s2 = schema(s2)
 
-
     if s1 == s2:
         return s1
     if s1== '':
@@ -288,6 +321,17 @@ def meet(s1,s2):
 
 
 def complete(base):
+    """
+    Returns the schematic completion of the set base.
+    
+    That is, for a given set of words of the the same length, base, returns:
+
+    {supremum(X) | X \subseteq base} 
+
+    """
+
+
+
     return __to_schema(__complete(base))
 
 
@@ -305,7 +349,9 @@ def __complete(base):
 
 
 def is_lower_n(s1,s2,xs):
-
+    """
+    Returns true if schema s1 is a lower neighbour of schema s2 in set of schema xs
+    """ 
     if __check_type(s1) != True:
         raise ValueError(str(s1) + " not of type string or schema")
     
@@ -341,48 +387,6 @@ def is_lower_n(s1,s2,xs):
 
     return True
 
-
-def is_lower_n1(s1,s2,xs):
-    
-    """
-    Returns true of x is a lower neighbourgh of y in xs.
-    """
-
-    if __check_type(s1) != True:
-        raise ValueError(str(s1) + " not of type string or schema")
-    
-    if __check_type(s2) != True:
-        raise ValueError(str(s2) + " not of type string or schema")
-
-    if s1 not in xs or s2 not in xs:
-            
-        raise ValueError("given inputs not in given set")
-
-
-    ln = True
-
-    if s1 == s2:
-        return False
-
-    if join(s1, s2) == s1:
-        print join(s1,s2)
-        return False
-   
-    if meet(s1,s2) == '' and s1 != '':
-        return False
-
-
-    else:
-        new = [i for i in xs if s1 != i and s2 != i]
-        for i in new:
-            print i
-            if join(s1,i) == i and meet(s2,i) ==i:
-                ln =False
-                break
-    
-    return ln
-
-
 def get_lower_ns(s,ss):
     """
     Gets all lower neighbours of s in ss
@@ -407,7 +411,7 @@ def get_lower_ns(s,ss):
 def draw_hasse(ss):
 
     """ 
-    draws a hasse diagram of for a given set of schema ss. 
+    Draws a hasse diagram of for a given set of schema ss also returns the associated networkx graph. 
     """   
     G = nx.Graph()
     for s in ss:
@@ -425,6 +429,6 @@ def draw_hasse(ss):
 
     nx.draw(G)
     pylab.show()
-
+    return G
     
  
