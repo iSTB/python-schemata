@@ -69,6 +69,16 @@ class schema(object):
 
         return join(self, other) == self
 
+
+
+    def __gt__(self,other):
+        
+        if type(other) != type(self) and type(other) != str:
+            raise TypeError("Cannot call >= on type " + str(type(self)) +
+                            " and " + str(type(other)))
+        return self.__ge__(other) and self != other
+
+
     def __le__(self, other):
 
         if type(other) != type(self) and type(other) != str:
@@ -76,6 +86,15 @@ class schema(object):
                             " and " + str(type(other)))
 
         return meet(self, other) == self
+
+
+    def __lt__(self,other):
+        
+        if type(other) != type(self) and type(other) != str:
+            raise TypeError("Cannot call >= on type " + str(type(self)) +
+                            " and " + str(type(other)))
+        
+        return self.__le__(other) and self != other
 
     def __eq__(self, other):
 
@@ -86,6 +105,33 @@ class schema(object):
         if type(other) == str:
             return self.string == other
         return self.string == other.string
+
+
+    def __ne__(self,other):
+        if type(other) != type(self) and type(other) != str:
+            raise TypeError("Cannot call == on type " + str(type(self)) +
+                            " and " + str(type(other)))
+        if type(other) == str:
+            return self.string != other
+        return self.string != other.string
+
+    def __cmp__(self,other):
+            if self == other:
+                return 0
+            if self < other:
+                return -1
+            if self > other:
+                return 1
+
+
+    def __nonzero__(self):
+        """
+        A schema is nonzero when it is not the empty schema
+        """
+
+        if self.string == '':
+            return False
+        return True
 
     def get_anti_order(self):
 
@@ -134,7 +180,7 @@ class schema(object):
 
         """
 
-        return self.get_length() - self.get_anti_order()
+        return len(self) - self.get_anti_order()
 
     def set_string(self, string):
 
@@ -412,6 +458,13 @@ def is_lower_n(s1,s2,xs):
 
     return True
 
+def comparable(s1,s2):
+
+    if ((s1 <= s2) == False) and ((s2 <= s1)==False):
+        return False #Case when s1 and s2 are not compareable
+
+    return True
+
 def get_lower_ns(s,ss):
     """
     Gets all lower neighbours of s in ss
@@ -433,12 +486,85 @@ def get_lower_ns(s,ss):
     return lns
 
 
+def get_layers(ss):
+    layers = []
+    removed = []
+    
+    ss = sorted(ss)
+    for s1 in ss:
+        
+
+        if s1 not in removed:
+            layer = [s1]
+            for s2 in ss:
+
+                if s1 != s2:
+                    comp = False
+                    for i in layer:
+                        if comparable(i,s2):
+                            comp = True
+                     
+                    if (not comp) and (s2 not in removed):
+                        layer.append(s2)
+                        removed += [s2]
+         
+            layers.append(layer)
+        
+            removed += [s1]
+    return layers
+                
+
+
+
 def draw_hasse(ss):
 
     """ 
     Draws a hasse diagram of for a given set of schema ss also returns the associated networkx graph. 
     """   
-    G = nx.Graph()
+    
+    try:
+        G = nx.Graph()
+        
+    except ImportError:
+        raise ImportError("Cannot use draw_hasse() as networkx is not installed ")
+
+    ss = sorted(ss,reverse=True)
+    
+    layer = 0
+    old = ss[0]
+    G.add_node(old,pos=(0,layer))
+    new_layer = False
+    r = True
+    right = 0
+    
+    left = -1
+
+    for s in ss[1:]:
+
+        if comparable(s,old):
+            new_layer = True
+            layer -= 1
+
+        if new_layer == True:
+            G.add_node(s, pos=(0,layer))
+            new_layer = False
+            r = 0
+            l = 0
+        
+        else:
+            if r:
+                G.add_node(s, pos=(right,layer))                
+                r +=1
+
+            else:
+                G.add_node(s,pos=(left,layer))
+                left -=1
+            r = not r
+        old = s
+            
+
+
+
     for s in ss:
         lns = get_lower_ns(s,ss)
 
