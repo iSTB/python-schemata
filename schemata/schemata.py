@@ -6,8 +6,12 @@ __version__ = "0.0.1"
 __maintainer__ = "Jack McKay Fletcher"
 __email__ = "jack.mckayfletcher@plymouth.ac.uk"
 __status__ = "Production"
-import itertools
 
+
+"""
+This contains the schema class and functions over schema such as join, meet and complete.
+"""
+import itertools
 try:
     import networkx as nx
 except ImportError:
@@ -25,7 +29,7 @@ except ImportError:
 class schema(object):
 
     """
-    The schema class
+    The schema class.
     """
     def __init__(self, string=''):
 
@@ -36,8 +40,6 @@ class schema(object):
         else:
             self.string = string
             self.alphabet = []
-
-
 
     def __str__(self):
 
@@ -133,20 +135,42 @@ class schema(object):
             return False
         return True
 
+    def is_empty_schema(self):
+        """
+        Returns true if this schema is the empty schema.
+        """
+
+        if self.string == '':
+            return True
+            
+        else:
+            return False 
+
     def get_anti_order(self):
 
         """
-        Returns the anti order of the current schema.
+        Returns the anti order of the current schema. The anti-order is the
+        number of wild cards (*'s) in the schema
 
         Example:
 
-        >>> s = schema(1**0**)
+        >>> s = schema('1**0**')
         >>> s.get_anti_order()
-        >>> 
+        >>> 4
         """
         return self.string.count('*')
 
-    def get_def_length(self):
+    def get_defining_length(self):
+        """
+        Returns the defining length of the schema.
+        The defining length is the distance between the first
+        and last fixed symbol.
+
+        Example:        
+        >>> s = schema('1**0**')
+        >>> s.get_defining_length(s)
+        >>> 3
+        """
 
         start = 0
         last = 0
@@ -164,25 +188,39 @@ class schema(object):
 
     def get_top(self):
         """
-        Returns the maximal possible element assosiated with this schema
+        Returns the maximal possible element assosiated with this schema.
+        
+        Example:
+        
+        >>> s = schema.('1***10')
+        >>> s.get_top()
+        >>> s.get_top()
+        >>> ***
         """
         top = ''
         for i in xrange(len(self)):
             top += '*'
+
+        return top
+
     def get_order(self):
         """
         Returns the order of the current schema.
 
         Example:
-        >>> s = schema.(1***10)
+
+        >>> s = schema.('1***10')
         >>> s.get_order()
         >>> 3
-
         """
 
         return len(self) - self.get_anti_order()
 
     def set_string(self, string):
+        """
+        Sets the schema. This can only take a string. 
+        """
+
 
         if type(x) != str:
             raise ValueError("set_string() must take a str as input")
@@ -190,6 +228,9 @@ class schema(object):
         self.string = string 
 
     def set_alphabet(self, alpha):
+        """
+        Sets the alphabet used by the schema.
+        """
  
         if type(alpha) != list:
             raise ValueError("set_alphabet only can take be a list of chars or strings as inputs" ) 
@@ -206,7 +247,6 @@ class schema(object):
         """ 
         Expands the schema.
         Note: The alphabet of the schema needs to be set first, use set_alphabet().
-
         Example:
         >>> s = schemata.schema('1*0')
         >>> s.set_alphabet(['1','0'])
@@ -219,6 +259,8 @@ class schema(object):
             return None
 
         expanded_set = []
+
+        
             
 def __all_eq_lens(xs):
     """
@@ -277,7 +319,9 @@ def __check_type(x):
 
 
 def __to_schema(xs):
-
+    """
+    Turns
+    """
 
     if type(xs) == str:
             return schema(xs)
@@ -468,7 +512,6 @@ def comparable(s1,s2):
 def get_lower_ns(s,ss):
     """
     Gets all lower neighbours of s in ss
-
     """
     if __check_type(s) != True:
         raise ValueError(str(s) + " not of type string or schema")
@@ -485,42 +528,85 @@ def get_lower_ns(s,ss):
         
     return lns
 
-
 def get_layers(ss):
     layers = []
     removed = []
     
     ss = sorted(ss)
     for s1 in ss:
-        
-
         if s1 not in removed:
             layer = [s1]
             for s2 in ss:
-
                 if s1 != s2:
                     comp = False
                     for i in layer:
                         if comparable(i,s2):
                             comp = True
-                     
+                            break
                     if (not comp) and (s2 not in removed):
                         layer.append(s2)
                         removed += [s2]
          
             layers.append(layer)
-        
             removed += [s1]
     return layers
                 
-
-
-
 def draw_hasse(ss):
-
     """ 
     Draws a hasse diagram of for a given set of schema ss also returns the associated networkx graph. 
     """   
+
+    try:
+        G = nx.Graph()
+        
+    except ImportError:
+        raise ImportError("Cannot use draw_hasse() as networkx is not installed ")
+
+    layers = get_layers(ss)    
+    layers.reverse()
+    print layers
+    for i in range(len(layers)):
+
+        right= 0
+        left= -1
+        r = True
+        for s in layers[i]:
+            if r == True:
+                print "added " + str(s) + "(" + str(i) + "," + str(right) + ")" 
+                G.add_node(s, pos=(right,-i),node_color='white')
+                right +=1
+                r = not r
+            else:
+                print "added " + str(s) + "(" + str(i) + "," + str(left) + ")" 
+                G.add_node(s, pos=(left,-i),node_color='white')
+                left -=1
+                r = not r
+                
+    for s in ss:
+        lns = get_lower_ns(s,ss)
+    
+        for ln in lns:
+           # if ln == '':
+            #    ln = 'e'
+
+           # if s == '': 
+            #    s = 'e'
+                
+            G.add_edge(s,ln)
+       
+    pos=nx.get_node_attributes(G,'pos')
+    nx.draw_networkx(G,pos,node_color='white',node_size=0)
+
+    pylab.axis('off')
+
+    pylab.show()
+
+
+    return G
+    
+"""
+def draw_hasse(ss):
+
     
     try:
         G = nx.Graph()
@@ -528,8 +614,6 @@ def draw_hasse(ss):
     except ImportError:
         raise ImportError("Cannot use draw_hasse() as networkx is not installed ")
 
-    ss = sorted(ss,reverse=True)
-    
     layer = 0
     old = ss[0]
     G.add_node(old,pos=(0,layer))
@@ -570,16 +654,17 @@ def draw_hasse(ss):
 
     
         for ln in lns:
-            if ln == '':
-                ln = 'e'
+           # if ln == '':
+            #    ln = 'e'
 
-            if s == '': 
-                s = 'e'
+            #if s == '': 
+             #   s = 'e'
                 
             G.add_edge(s,ln)
 
-    nx.draw(G)
+    pos=nx.get_node_attributes(G,'pos')
+
+    nx.draw(G,pos)
     pylab.show()
     return G
-    
- 
+"""
