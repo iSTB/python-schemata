@@ -3,4 +3,6 @@
 *.swp
 build*
 log
-*.sw
+*.sw.
+dist
+*.egg-info
