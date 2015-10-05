@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-from distutils.core import setup
+from setuptools import setup
 
 setup(
     name = 'schemata',
@@ -12,5 +12,5 @@ setup(
     keywords=['schemata', 'schema', 'genetic algorithms', 'GAs', 'complete lattice', 'meet', 'join'],
     description = 'Python library for all things schemata related',
     long_description = open('README').read(),
-    install_requires=['itertools'],
+    install_requires=['graphviz'],
 )

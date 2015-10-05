@@ -9,23 +9,15 @@ __status__ = "Production"
 
 
 """
-This contains the schema class and functions over schema such as join, meet and complete.
+This file  contains the schema class and functions over schema such as join, meet and complete.
 """
-import itertools
-try:
-    import networkx as nx
-except ImportError:
-    raise ImportError("networkx not installed on this machine. To enable "
-                      "drawing functionality for this package, "
-                      "please install networkx.")
 
+gp = True
 try:
-    import pylab
+    from graphviz import Graph
 except ImportError:
-    raise ImportError("pylab not installed on this machine. To enable "
-                      "drawing functionality for this package, "
-                      "please pylab.")
-
+    gp = False   
+ 
 class schema(object):
 
     """
@@ -44,14 +36,14 @@ class schema(object):
     def __str__(self):
 
         if self.string == '':
-            return "''"
+            return "e"
 
         return self.string
 
     def __repr__(self):
 
         if self.string == '':
-            return "''"
+            return "e"
 
         return self.string
 
@@ -70,8 +62,6 @@ class schema(object):
                             " and " + str(type(other)))
 
         return join(self, other) == self
-
-
 
     def __gt__(self,other):
         
@@ -209,7 +199,7 @@ class schema(object):
 
         Example:
 
-        >>> s = schema.('1***10')
+        >>> s = schema('1***10')
         >>> s.get_order()
         >>> 3
         """
@@ -218,7 +208,7 @@ class schema(object):
 
     def set_string(self, string):
         """
-        Sets the schema. This can only take a string. 
+        Sets the schema. This can only take a string as input. 
         """
 
 
@@ -229,7 +219,15 @@ class schema(object):
 
     def set_alphabet(self, alpha):
         """
-        Sets the alphabet used by the schema.
+        Sets the alphabet used by the schema. Alpha can only be a list 
+        of strings.
+
+        Example:
+
+        >>> s = schema('1***10')
+        >>> s.set_alphabet(['1','0'])
+        >>> 3
+
         """
  
         if type(alpha) != list:
@@ -260,7 +258,6 @@ class schema(object):
 
         expanded_set = []
 
-        
             
 def __all_eq_lens(xs):
     """
@@ -320,7 +317,7 @@ def __check_type(x):
 
 def __to_schema(xs):
     """
-    Turns
+    Turns a list of strings into a list of schema.
     """
 
     if type(xs) == str:
@@ -340,7 +337,10 @@ def __to_schema(xs):
     return new
 
 
-def join(s1,s2):    
+def join(s1,s2):
+    """
+    Returns the join of schema s1 and s2.  
+    """
     if __check_type(s1) != True:
         raise ValueError(str(s1) + " not of type string or schema")
     
@@ -452,11 +452,18 @@ def complete(base):
 
 def __complete(base):
     new = []
-    for pair in itertools.product(base, repeat=2):
-        if pair[0] != pair[1]:
-            j = join(pair[0],pair[1])
-            if j not in base+new:
-                new.append(j)
+
+    for i in base:
+        for j in base:
+            if i != j:
+                x = join(i,j)
+                if x not in base+new:
+                    new.append(x)
+    #for pair in itertools.product(base, repeat=2):
+    #    if pair[0] != pair[1]:
+    #        j = join(pair[0],pair[1])
+    #        if j not in base+new:
+    #            new.append(j)
     if new == []:
         return base + ['']
 
@@ -528,143 +535,23 @@ def get_lower_ns(s,ss):
         
     return lns
 
-def get_layers(ss):
-    layers = []
-    removed = []
-    
-    ss = sorted(ss)
-    for s1 in ss:
-        if s1 not in removed:
-            layer = [s1]
-            for s2 in ss:
-                if s1 != s2:
-                    comp = False
-                    for i in layer:
-                        if comparable(i,s2):
-                            comp = True
-                            break
-                    if (not comp) and (s2 not in removed):
-                        layer.append(s2)
-                        removed += [s2]
-         
-            layers.append(layer)
-            removed += [s1]
-    return layers
-                
-def draw_hasse(ss):
-    """ 
-    Draws a hasse diagram of for a given set of schema ss also returns the associated networkx graph. 
-    """   
-
-    try:
-        G = nx.Graph()
         
-    except ImportError:
-        raise ImportError("Cannot use draw_hasse() as networkx is not installed ")
-
-    layers = get_layers(ss)    
-    layers.reverse()
-    print layers
-    for i in range(len(layers)):
-
-        right= 0
-        left= -1
-        r = True
-        for s in layers[i]:
-            if r == True:
-                print "added " + str(s) + "(" + str(i) + "," + str(right) + ")" 
-                G.add_node(s, pos=(right,-i),node_color='white')
-                right +=1
-                r = not r
-            else:
-                print "added " + str(s) + "(" + str(i) + "," + str(left) + ")" 
-                G.add_node(s, pos=(left,-i),node_color='white')
-                left -=1
-                r = not r
-                
-    for s in ss:
-        lns = get_lower_ns(s,ss)
+def draw(ss,filename):
+    """
+    Draws the hasse diagram of ss. Saves diagram in the file filename as a pdf.
+    """
+    if not gp:
+        raise ImportError("graphviz not installed cannot draw. Use sudo pip install graphviz to enable drawing")
     
-        for ln in lns:
-           # if ln == '':
-            #    ln = 'e'
-
-           # if s == '': 
-            #    s = 'e'
-                
-            G.add_edge(s,ln)
-       
-    pos=nx.get_node_attributes(G,'pos')
-    nx.draw_networkx(G,pos,node_color='white',node_size=0)
-
-    pylab.axis('off')
-
-    pylab.show()
-
-
-    return G
-    
-"""
-def draw_hasse(ss):
-
-    
-    try:
-        G = nx.Graph()
-        
-    except ImportError:
-        raise ImportError("Cannot use draw_hasse() as networkx is not installed ")
-
-    layer = 0
-    old = ss[0]
-    G.add_node(old,pos=(0,layer))
-    new_layer = False
-    r = True
-    right = 0
-    
-    left = -1
-
-    for s in ss[1:]:
-
-        if comparable(s,old):
-            new_layer = True
-            layer -= 1
-
-        if new_layer == True:
-            G.add_node(s, pos=(0,layer))
-            new_layer = False
-            r = 0
-            l = 0
-        
-        else:
-            if r:
-                G.add_node(s, pos=(right,layer))                
-                r +=1
-
-            else:
-                G.add_node(s,pos=(left,layer))
-                left -=1
-            r = not r
-        old = s
-            
-
-
+    dot = Graph()
 
     for s in ss:
-        lns = get_lower_ns(s,ss)
+        dot.node(str(s),str(s))
 
-    
-        for ln in lns:
-           # if ln == '':
-            #    ln = 'e'
+    for s in ss:
+        ln = get_lower_ns(s,ss)
+        for l in ln:
+            dot.edge(str(s),str(l))
 
-            #if s == '': 
-             #   s = 'e'
-                
-            G.add_edge(s,ln)
-
-    pos=nx.get_node_attributes(G,'pos')
-
-    nx.draw(G,pos)
-    pylab.show()
-    return G
-"""
+    dot.render(filename)
+    return dot.source

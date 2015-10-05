@@ -1,0 +1,9 @@
+README
+setup.py
+schemata/__init__.py
+schemata/schemata.py
+schemata.egg-info/PKG-INFO
+schemata.egg-info/SOURCES.txt
+schemata.egg-info/dependency_links.txt
+schemata.egg-info/requires.txt
+schemata.egg-info/top_level.txt
