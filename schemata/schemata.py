@@ -445,6 +445,7 @@ def complete(base):
     {supremum(X) | X \subseteq base} 
 
     """
+
     return __to_schema(__complete(base))
 
 def __complete(base):
