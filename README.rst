@@ -1,17 +1,11 @@
-Concepts
+Schemata
 ========
 
 |PyPI version| |License| |Supported Python| |Format| |Downloads|
 
-Concepts is a simple Python implementation of **Formal Concept Analysis**
-(FCA_).
+Schemata is a simple Python package to do all things related to _schemata.
 
-FCA provides a mathematical model for describing a set of **objects** (e.g. King
-Arthur, Sir Robin, and the holy grail) with a set of **properties** (e.g. human,
-knight, king, and mysterious) which each of the objects either has or not. A
-table called *formal context* defines which objects have a given property and
-vice versa which properties a given object has.
-
+A schema is word 
 
 Links
 -----
@@ -140,13 +134,14 @@ License
 
 Concepts is distributed under the `MIT license`_.
 
-
+.. _schemata: https://en.wikipedia.org/wiki/Schema_%28genetic_algorithms%29
 .. _FCA: http://en.wikipedia.org/wiki/Formal_concept_analysis
 .. _Fast Concept Analysis: http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.143.948
 .. _FCA homepage: http://www.upriss.org.uk/fca/examples.html
 
 .. _pip: http://pip.readthedocs.org
 .. _Graphviz software: http://www.graphviz.org
+
 
 .. _bitsets: http://pypi.python.org/pypi/bitsets
 .. _graphviz: http://pypi.python.org/pypi/graphviz
