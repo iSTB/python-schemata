@@ -69,7 +69,7 @@ Basic schema operations:
 
     >>> s2 = schemata.schema('1**1') #makes another schema
 
-    >>> s <= s2
+    >>> s <= s2 
     True
 
     >>> s < s2
@@ -84,7 +84,15 @@ Basic schema operations:
     >>> schemata.join(s,s2)
     1**1
 
-How to use schematic completion and to draw the schematic lattice:
+    >>> s3 = schemata.schema('00*1')
+    
+    >>> schemata.supremum([s,s2,s3])
+    ***1
+
+    >>> schemata.infimum([s,s2,s3])
+    e                               #e stands for the empty schema
+
+Schematic completion and drawing the schematic lattice:
 
 .. code-block:: python
     
@@ -95,7 +103,7 @@ How to use schematic completion and to draw the schematic lattice:
     >>> ss = schemata.complete(xs)
     
     >>> ss
-    [111, 011, 001, *11, **1, 0*1, e]
+    [111, 011, 001, *11, **1, 0*1, e] #e stands for the empty schema
 
 
     
