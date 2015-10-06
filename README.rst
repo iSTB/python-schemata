@@ -3,9 +3,11 @@ Schemata
 
 |PyPI version| |License| |Supported Python| |Format| |Downloads|
 
-Schemata is a simple Python package to do all things related to _schemata.
+Schemata is a simple Python package to do all things related to schemata_.
 
-A schema is word 
+A schema is word made using an extra symbol, '*', called the wild card symbol.
+For example the schema over the binary aplhapbet '1*0', represents the set of
+strings. {'100','110'} 
 
 Links
 -----
