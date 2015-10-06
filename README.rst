@@ -60,7 +60,7 @@ The file example.py gives a good overview of how to use the package.
     >>> ss = schemata.complete(xs)
     
     >>> ss
-    [111, 011, 001, \*11, \*\*1, 0\*1, e]
+    [111, 011, 001, *11, **1, 0*1, e]
 
 
     
