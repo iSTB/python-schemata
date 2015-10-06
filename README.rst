@@ -16,7 +16,7 @@ The defining length of s is the distance between the first and last fixed symbol
 Given a set of words of the same length S, the schematic completion of S
 returns all schemata which can make the words in S. 
 Whats more given the partial ordering over schemata, the schematic completion of S
-forms a `Complete Lattice'_      
+forms a `Complete Lattice`_      
 
 
 Links
