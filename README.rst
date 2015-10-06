@@ -111,7 +111,9 @@ Schematic completion and drawing the schematic lattice:
 The image produced here:
 
 .. image:: https://raw.github.com/iSTB/python-schemata/blob/master/docs/my_lattice.pdf
-    :align center
+    :align: center
+.. image:: https://raw.github.com/xflr6/concepts/master/docs/holy-grail.png
+    :align: center
 
 
 Further reading
