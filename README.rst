@@ -49,18 +49,7 @@ Rendering lattice graphs depends on the `Graphviz software`_. Make sure its
 Quickstart
 ----------
 
-.. code:: python
-
-    >>> import schemata
-
-    >>> xs = ['111','011','001']
-
-    >>> ss = schemata.complete(xs)
-
-    >>> ss   
-    r"""[111, 011, 001, \\*11, \\**1, \\0*1, e]"""
-
-    >>>                
+.. literalinclude:: example.py                
 
 
 
