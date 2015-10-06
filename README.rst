@@ -112,65 +112,41 @@ The image produced here:
 
 .. image:: https://github.com/iSTB/python-schemata/blob/master/docs/my_lattice.png?raw=true
     :align: center
-.. image:: https://raw.github.com/xflr6/concepts/master/docs/holy-grail.png
-    :align: center
 
 
 Further reading
 ---------------
 
-- http://en.wikipedia.org/wiki/Formal_concept_analysis
-- http://www.upriss.org.uk/fca/
-
-The generation of the concept lattice is based on the algorithm from C. Lindig.
-`Fast Concept Analysis`_. In Gerhard Stumme, editors, Working with Conceptual
-Structures - Contributions to ICCS 2000, Shaker Verlag, Aachen, Germany, 2000.
-
-The included example ``CXT`` files are taken from Uta Priss' `FCA homepage`_
-
+- https://en.wikipedia.org/wiki/Schema_%28genetic_algorithms%29
+- https://en.wikipedia.org/wiki/Lattice_%28order%29
 
 See also
 --------
 
 The implementation is based on these Python packages:
 
-- bitsets_ |--| Ordered subsets over a predefined domain
 - graphviz_ |--| Simple Python interface for Graphviz
 
-The following package is build on top of concepts:
 
-- features_ |--| Feature set algebra for linguistics
 
-If you want to apply FCA to bigger data sets, you might want to consider `other
-implementations`_ based on `more sophisticated algorithms`_ like In-Close_
-or Fcbo_.
 
 
 License
 -------
 
-Concepts is distributed under the `MIT license`_.
+Schemata is distributed under the `MIT license`_.
 
 
 
 .. _Complete Lattice: https://en.wikipedia.org/wiki/Complete_lattice
 .. _schemata: https://en.wikipedia.org/wiki/Schema_%28genetic_algorithms%29
-.. _FCA: http://en.wikipedia.org/wiki/Formal_concept_analysis
-.. _Fast Concept Analysis: http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.143.948
-.. _FCA homepage: http://www.upriss.org.uk/fca/examples.html
 
 .. _pip: http://pip.readthedocs.org
 .. _Graphviz software: http://www.graphviz.org
 
 
-.. _bitsets: http://pypi.python.org/pypi/bitsets
 .. _graphviz: http://pypi.python.org/pypi/graphviz
-.. _features: http://pypi.python.org/pypi/features
 
-.. _other implementations: http://www.upriss.org.uk/fca/fcasoftware.html
-.. _more sophisticated algorithms: http://www.upriss.org.uk/fca/fcaalgorithms.html
-.. _In-Close: http://sourceforge.net/projects/inclose/
-.. _Fcbo: http://fcalgs.sourceforge.net
 
 .. _MIT license: http://opensource.org/licenses/MIT
 
