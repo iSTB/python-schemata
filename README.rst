@@ -61,8 +61,28 @@ Basic schema operations:
     >>> s
     10*1
 
-    >>> s.
+    >>> s.get_order()
+    3
 
+    >>> s.get_defining_length()
+    3
+
+    >>> s2 = schemata.schema('1**1') #makes another schema
+
+    >>> s <= s2
+    True
+
+    >>> s < s2
+    True
+
+    >>> s == s2
+    False
+ 
+    >>> schemata.meet(s,s2)
+    10*1
+
+    >>> schemata.join(s,s2)
+    1**1
 
 How to use schematic completion and to draw the schematic lattice:
 
