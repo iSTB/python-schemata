@@ -49,8 +49,11 @@ Rendering lattice graphs depends on the `Graphviz software`_. Make sure its
 Quickstart
 ----------
 
-.. include:: example.py                
-.. language: python
+.. code-block:: python
+    
+    xs = ['111', '011', '001']
+
+    
 
 
 Query **common properties** of objects or **common objects** of properties
