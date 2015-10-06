@@ -14,9 +14,9 @@ number of symbols in s which are not the wild card symbols (called fixed symbols
 The defining length of s is the distance between the first and last fixed symbol.  
 
 Given a set of words of the same length S, the schematic completion of S
-returns all schemata which can make the words in S. 
+returns all schema which make subsets of the words in S. 
 Whats more given the partial ordering over schemata, the schematic completion of S
-forms a `Complete Lattice`_      
+forms a `Complete Lattice`_.      
 
 
 Links
@@ -37,9 +37,9 @@ This package runs under Python 2.7 and 3.3+, use pip_ to install:
 
 .. code:: bash
 
-    $ pip install concepts
+    $ pip install schemata
 
-This will also install the bitsets_ and graphviz_ packages from PyPI as
+This will also install the graphviz_ package from PyPI as
 required dependencies.
 
 Rendering lattice graphs depends on the `Graphviz software`_. Make sure its
@@ -49,20 +49,19 @@ Rendering lattice graphs depends on the `Graphviz software`_. Make sure its
 Quickstart
 ----------
 
-Create a **formal context** defining which object has which property, e.g. from
-a simple ASCII-art style cross-table with *object* rows and *property* columns
-(alternatively load a CXT or CSV file):
-
 .. code:: python
 
-    >>> from concepts import Context
+    >>> import schemata
 
-    >>> c = Context.fromstring('''
-    ...            |human|knight|king |mysterious|
-    ... King Arthur|  X  |  X   |  X  |          |
-    ... Sir Robin  |  X  |  X   |     |          |
-    ... holy grail |     |      |     |     X    |
-    ... ''')
+    >>> xs = ['111','011','001']
+
+    >>> ss = schemata.complete(xs)
+
+    >>> ss   
+    [111, 011, 001,\*11, \*\*1, 0\*1, e]
+
+    >>>                
+
 
 
 Query **common properties** of objects or **common objects** of properties
