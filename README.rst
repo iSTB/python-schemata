@@ -7,16 +7,26 @@ Schemata is a simple Python package to do all things related to schemata_.
 
 A schema is word made using an extra symbol, '*', called the wild card symbol.
 For example the schema over the binary aplhapbet '1*0', represents the set of
-strings. {'100','110'} 
+strings. {'100','110'}'.
+
+Schema have properties. For example, for a schema s, the order of s is the
+number of symbols in s which are not the wild card symbols (called fixed symbols).
+The defining length of s is the distance between the first and last fixed symbol.  
+
+Given a set of words of the same length S, the schematic completion of S
+returns all schemata which can make the words in S. 
+Whats more given the partial ordering over schemata, the schematic completion of S
+forms a `Complete Lattice'_      
+
 
 Links
 -----
 
-- GitHub: http://github.com/xflr6/concepts
+- GitHub:https://github.com/iSTB/python-schemata
 - PyPI: http://pypi.python.org/pypi/concepts
 - Documentation: http://concepts.readthedocs.org
 - Changelog: http://concepts.readthedocs.org/en/latest/changelog.html
-- Issue Tracker: http://github.com/xflr6/concepts/issues
+- Issue Tracker: https://github.com/iSTB/python-schemata/issues
 - Download: http://pypi.python.org/pypi/concepts#downloads
 
 
@@ -136,6 +146,9 @@ License
 
 Concepts is distributed under the `MIT license`_.
 
+
+
+.. _Complete Lattice: https://en.wikipedia.org/wiki/Complete_lattice
 .. _schemata: https://en.wikipedia.org/wiki/Schema_%28genetic_algorithms%29
 .. _FCA: http://en.wikipedia.org/wiki/Formal_concept_analysis
 .. _Fast Concept Analysis: http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.143.948
