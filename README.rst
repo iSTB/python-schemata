@@ -108,11 +108,10 @@ Schematic completion and drawing the schematic lattice:
     >>> schemata.draw(ss,'my_lattice') #draws the schematic lattice of ss and saves it as my_lattice.pdf 
     
 
-The lattice produced from this code
+The image produced here:
 
-
-.. image:: https://github.com/iSTB/python-schemata/blob/master/docs/my_lattice.pdf
-    :align: center
+.. image:: https://raw.github.com/iSTB/python-schemata/blob/master/docs/my_lattice.pdf
+    :align center
 
 
 Further reading
