@@ -50,7 +50,21 @@ Quickstart
 ----------
 The file example.py gives a good overview of how to use the package.
 
+Basic schema operations:
 
+.. code-block:: python
+
+    >>> import schemata
+
+    >>> s = schemata.schema('10*1') #makes a schema
+
+    >>> s
+    10*1
+
+    >>> s.
+
+
+How to use schematic completion and to draw the schematic lattice:
 .. code-block:: python
     
     >>> import schemata
