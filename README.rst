@@ -65,6 +65,7 @@ Basic schema operations:
 
 
 How to use schematic completion and to draw the schematic lattice:
+
 .. code-block:: python
     
     >>> import schemata
