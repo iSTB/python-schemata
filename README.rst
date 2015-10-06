@@ -49,7 +49,7 @@ Rendering lattice graphs depends on the `Graphviz software`_. Make sure its
 Quickstart
 ----------
 
-.. literalinclude:: example.py                
+.. include:: example.py                
 .. language: python
 
 
