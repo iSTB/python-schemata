@@ -100,58 +100,18 @@ Schematic completion and drawing the schematic lattice:
     
     >>> xs = ['111', '011', '001']
     
-    >>> ss = schemata.complete(xs)
+    >>> ss = schemata.complete(xs) #performing schematic completion 
     
     >>> ss
     [111, 011, 001, *11, **1, 0*1, e] #e stands for the empty schema
 
-
+    >>> schemata.draw(ss,'my_lattice') #draws the schematic lattice of ss and saves it as my_lattice.pdf 
     
 
+The lattice produced from this code
 
-Query **common properties** of objects or **common objects** of properties
-(*derivation*):
 
-.. code:: python
-
-    >>> c.intension(['King Arthur', 'Sir Robin'])
-    ('human', 'knight')
-
-    >>> c.extension(['knight', 'mysterious'])
-    ()
-
-Get the closest matching **objects-properties pair** of objects or properties
-(*formal concepts*):
-
-.. code:: python
-
-    >>> c['Sir Robin', 'holy grail']
-    (('King Arthur', 'Sir Robin', 'holy grail'), ())
-
-    >>> c['king',]
-    (('King Arthur',), ('human', 'knight', 'king'))
-
-Iterate over the **concept lattice** of all objects-properties pairs:
-
-.. code:: python
-
-    >>> for extent, intent in c.lattice:
-    ...     print('%r %r' % (extent, intent))
-    () ('human', 'knight', 'king', 'mysterious')
-    ('King Arthur',) ('human', 'knight', 'king')
-    ('holy grail',) ('mysterious',)
-    ('King Arthur', 'Sir Robin') ('human', 'knight')
-    ('King Arthur', 'Sir Robin', 'holy grail') ()
-
-Make a Graphviz visualization of the lattice (use ``.graphviz(view=True)`` to
-directly render it and display the resulting PDF):
-
-.. code:: python
-
-    >>> c.lattice.graphviz()  # doctest: +ELLIPSIS
-    <graphviz.dot.Digraph object at 0x...>
-
-.. image:: https://raw.github.com/xflr6/concepts/master/docs/holy-grail.png
+.. image:: https://github.com/iSTB/python-schemata/blob/master/docs/my_lattice.pdf
     :align: center
 
 
