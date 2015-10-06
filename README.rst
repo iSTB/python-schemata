@@ -50,7 +50,7 @@ Quickstart
 ----------
 
 .. literalinclude:: example.py                
-
+.. language: python
 
 
 Query **common properties** of objects or **common objects** of properties
