@@ -51,7 +51,13 @@ Quickstart
 
 .. code-block:: python
     
-    xs = ['111', '011', '001']
+    >>> import schemata
+    
+    >>> xs = ['111', '011', '001']
+    
+    >>> ss = schemata.complete(xs)
+    
+    >>> ss
 
     
 
