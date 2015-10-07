@@ -241,23 +241,23 @@ class schema(object):
         self.alphabet = alpha
 
 
-    def expansion(self):
-        """ 
-        Expands the schema.
-        Note: The alphabet of the schema needs to be set first, use set_alphabet().
-        Example:
-        >>> s = schematax.schema('1*0')
-        >>> s.set_alphabet(['1','0'])
-        >>> s.expansion()
-        >>> ['110','101']
-        """
-        
-        if self.alphabet == []:
-            raise ValueError('exansion() cannot be called when the alphabet not set, use set_alphabet()')
-            return None
-
-        expanded_set = []
-
+#    def expansion(self):
+#        """ 
+#        Expands the schema.
+#        Note: The alphabet of the schema needs to be set first, use set_alphabet().
+#        Example:
+#        >>> s = schematax.schema('1*0')
+#        >>> s.set_alphabet(['1','0'])
+#        >>> s.expansion()
+#        >>> ['110','101']
+#        """
+#        
+#        if self.alphabet == []:
+#            raise ValueError('exansion() cannot be called when the alphabet not set, use set_alphabet()')
+#            return None
+#
+#        expanded_set = []
+#
             
 def __all_eq_lens(xs):
     """
@@ -544,7 +544,6 @@ def is_lower_n(s1,s2,xs):
 
 
     new = [x for x in xs if x != s1 and x != s2]
-    print new    
     for i in new:
         if i >= s1 and i <= s2: 
             return False
@@ -593,7 +592,6 @@ def draw(ss,filename):
     >>> schematax.draw(ss,'test')
     """
 
-    """
     if not gp:
         raise ImportError("graphviz not installed cannot draw. Use sudo pip install graphviz to enable drawing")
     
