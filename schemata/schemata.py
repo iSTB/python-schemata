@@ -1,7 +1,7 @@
 __author__ = "Jack McKay Fletcher"
 __copyright__ = "Copyright 2015, Plymouth University "
 __credits__ = ["Thomas Wenneker"]
-__license__ = "GPL"
+__license__ = "MIT"
 __version__ = "0.0.1"
 __maintainer__ = "Jack McKay Fletcher"
 __email__ = "jack.mckayfletcher@plymouth.ac.uk"
