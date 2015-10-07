@@ -185,7 +185,7 @@ class schema(object):
         >>> s = schema.('1***10')
         >>> s.get_top()
         >>> s.get_top()
-        >>> ***
+        >>> ******
         """
         top = ''
         for i in xrange(len(self)):
@@ -305,7 +305,9 @@ def __all_eq_lens(xs):
 
 def __check_type(x):
     """
+    
     Checks if a variable x is of type schema or string.
+    Returns True if is schema or string.
     """
 
     s = schema()
@@ -339,7 +341,16 @@ def __to_schema(xs):
 
 def join(s1,s2):
     """
-    Returns the join of schema s1 and s2.  
+    Returns the join of schema s1 and s2. 
+
+
+    Example:
+
+    >>> s1 = schemata.schema('***')
+    >>> s2 = schemata.schema('1**')
+    >>> schemata.join(s1,s2)
+    ***
+ 
     """
     if __check_type(s1) != True:
         raise ValueError(str(s1) + " not of type string or schema")
@@ -378,6 +389,17 @@ def join(s1,s2):
 
 def meet(s1,s2):
 
+    """
+    Returns the join of schema s1 and s2. 
+
+
+    Example:
+
+    >>> s1 = schemata.schema('***')
+    >>> s2 = schemata.schema('1**') 
+    >>> schemata.meet(s1,s2)
+    1**
+    """
     if __check_type(s1) != True:
         raise ValueError(str(s1) + " not of type string or schema")
     
@@ -415,6 +437,18 @@ def meet(s1,s2):
     return schema(new)
 
 def supremum(xs):
+    """
+    Returns the supremum of a set of schema xs.
+
+    Example:
+    
+    >>> s1 = schemata.schema('1*1')
+    >>> s2 = schemata.schema('111')
+    >>> s3 = schema.schema('11*')
+    >>> schemata.supremum([s1,s2,s3])
+    >>> 1**
+    """
+
 
     if xs  == []:
         return schema()
@@ -426,9 +460,20 @@ def supremum(xs):
 
 def infimum(xs):
 
+    """
+    Returns the supremum of a set of schema xs.
+
+    Example:
+    
+    >>> s1 = schemata.schema('1*1')
+    >>> s2 = schemata.schema('111')
+    >>> s3 = schema.schema('11*')
+    >>> schemata.supremum([s1,s2,s3])
+    >>> 111
+
+    """
     if xs == []:
         return schema()
-
     current = xs[0]
 
     for string in xs:
@@ -449,6 +494,8 @@ def complete(base):
     return __to_schema(__complete(base))
 
 def __complete(base):
+
+ 
     new = []
 
     for i in base:
@@ -457,13 +504,11 @@ def __complete(base):
                 x = join(i,j)
                 if x not in base+new:
                     new.append(x)
-    #for pair in itertools.product(base, repeat=2):
-    #    if pair[0] != pair[1]:
-    #        j = join(pair[0],pair[1])
-    #        if j not in base+new:
-    #            new.append(j)
     if new == []:
-        return base + ['']
+        if '' not in base:
+            return base + ['']
+        else:  
+            return base
 
     else: return base+complete(new)
 
@@ -508,6 +553,9 @@ def is_lower_n(s1,s2,xs):
     return True
 
 def comparable(s1,s2):
+    """
+    Returns True when s1 and s2 are comparable 
+    """
 
     if ((s1 <= s2) == False) and ((s2 <= s1)==False):
         return False #Case when s1 and s2 are not compareable
@@ -541,6 +589,13 @@ def draw(ss,filename):
     if not gp:
         raise ImportError("graphviz not installed cannot draw. Use sudo pip install graphviz to enable drawing")
     
+    if type(ss) != list:
+        ss = [ss]
+
+    for s in ss:
+        if not  __check_type(s):
+            raise TypeError("ss has to be a set of schemata to be drawn.")
+
     dot = Graph()
 
     for s in ss:

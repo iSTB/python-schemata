@@ -11,6 +11,6 @@ setup(
     license = 'LICENSE.txt',
     keywords=['schemata', 'schema', 'genetic algorithms', 'GAs', 'complete lattice', 'meet', 'join'],
     description = 'Python library for all things schemata related',
-    long_description = open('README').read(),
+    long_description = open('README.rst').read(),
     install_requires=['graphviz'],
 )
