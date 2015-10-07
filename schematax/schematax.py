@@ -246,7 +246,7 @@ class schema(object):
         Expands the schema.
         Note: The alphabet of the schema needs to be set first, use set_alphabet().
         Example:
-        >>> s = schemata.schema('1*0')
+        >>> s = schematax.schema('1*0')
         >>> s.set_alphabet(['1','0'])
         >>> s.expansion()
         >>> ['110','101']
@@ -346,9 +346,9 @@ def join(s1,s2):
 
     Example:
 
-    >>> s1 = schemata.schema('***')
-    >>> s2 = schemata.schema('1**')
-    >>> schemata.join(s1,s2)
+    >>> s1 = schematax.schema('***')
+    >>> s2 = schematax.schema('1**')
+    >>> schematax.join(s1,s2)
     ***
  
     """
@@ -395,9 +395,9 @@ def meet(s1,s2):
 
     Example:
 
-    >>> s1 = schemata.schema('***')
-    >>> s2 = schemata.schema('1**') 
-    >>> schemata.meet(s1,s2)
+    >>> s1 = schematax.schema('***')
+    >>> s2 = schematax.schema('1**') 
+    >>> schematax.meet(s1,s2)
     1**
     """
     if __check_type(s1) != True:
@@ -442,10 +442,10 @@ def supremum(xs):
 
     Example:
     
-    >>> s1 = schemata.schema('1*1')
-    >>> s2 = schemata.schema('111')
-    >>> s3 = schema.schema('11*')
-    >>> schemata.supremum([s1,s2,s3])
+    >>> s1 = schematax.schema('1*1')
+    >>> s2 = schematax.schema('111')
+    >>> s3 = schematax.schema('11*')
+    >>> schematax.supremum([s1,s2,s3])
     >>> 1**
     """
 
@@ -465,10 +465,10 @@ def infimum(xs):
 
     Example:
     
-    >>> s1 = schemata.schema('1*1')
-    >>> s2 = schemata.schema('111')
-    >>> s3 = schema.schema('11*')
-    >>> schemata.supremum([s1,s2,s3])
+    >>> s1 = schematax.schema('1*1')
+    >>> s2 = schematax.schema('111')
+    >>> s3 = schematax.schema('11*')
+    >>> schematax.infimum([s1,s2,s3])
     >>> 111
 
     """
@@ -585,6 +585,14 @@ def get_lower_ns(s,ss):
 def draw(ss,filename):
     """
     Draws the hasse diagram of ss. Saves diagram in the file filename as a pdf.
+    Example:
+    
+    >>> import schematax 
+    >>> xs = ['111','101']
+    >>> ss = schematax.complete(xs)
+    >>> schematax.draw(ss,'test')
+    """
+
     """
     if not gp:
         raise ImportError("graphviz not installed cannot draw. Use sudo pip install graphviz to enable drawing")

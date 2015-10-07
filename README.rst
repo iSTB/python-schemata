@@ -1,9 +1,9 @@
-Schemata
+schematax
 ========
 
 |PyPI version| |License| |Supported Python| |Format| |Downloads|
 
-Schemata is a simple Python package to do all things related to schemata_.
+schematax is a simple Python package to do all things related to schemata_.
 
 A schema is word made using an extra symbol, '*', called the wild card symbol.
 For example the schema over the binary aplhapbet '1*0', represents the set of
@@ -37,7 +37,7 @@ This package runs under Python 2.7 and 3.3+, use pip_ to install:
 
 .. code:: bash
 
-    $ pip install Schemata
+    $ pip install schematax
 
 This will also install the graphviz_ package from PyPI as
 required dependencies.
@@ -54,9 +54,9 @@ Basic schema operations:
 
 .. code-block:: python
 
-    >>> import Schemata
+    >>> import schematax
 
-    >>> s = Schemata.schema('10*1') #makes a schema
+    >>> s = schematax.schema('10*1') #makes a schema
 
     >>> s
     10*1
@@ -67,7 +67,7 @@ Basic schema operations:
     >>> s.get_defining_length()
     3
 
-    >>> s2 = Schemata.schema('1**1') #makes another schema
+    >>> s2 = schematax.schema('1**1') #makes another schema
 
     >>> s <= s2 
     True
@@ -78,34 +78,34 @@ Basic schema operations:
     >>> s == s2
     False
  
-    >>> Schemata.meet(s,s2)
+    >>> schematax.meet(s,s2)
     10*1
 
-    >>> Schemata.join(s,s2)
+    >>> schematax.join(s,s2)
     1**1
 
-    >>> s3 = Schemata.schema('00*1')
+    >>> s3 = schematax.schema('00*1')
     
-    >>> Schemata.supremum([s,s2,s3])
+    >>> schematax.supremum([s,s2,s3])
     ***1
 
-    >>> Schemata.infimum([s,s2,s3])
+    >>> schematax.infimum([s,s2,s3])
     e                               #e stands for the empty schema
 
 Schematic completion and drawing the schematic lattice:
 
 .. code-block:: python
     
-    >>> import Schemata
+    >>> import schematax
     
     >>> xs = ['111', '011', '001']
     
-    >>> ss = Schemata.complete(xs) #performing schematic completion 
+    >>> ss = schematax.complete(xs) #performing schematic completion 
     
     >>> ss
     [111, 011, 001, *11, **1, 0*1, e] #e stands for the empty schema
 
-    >>> Schemata.draw(ss,'my_lattice') #draws the schematic lattice of ss and saves it as my_lattice.pdf 
+    >>> schematax.draw(ss,'my_lattice') #draws the schematic lattice of ss and saves it as my_lattice.pdf 
     
 
 The image produced here:

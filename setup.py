@@ -2,15 +2,15 @@
 from setuptools import setup
 
 setup(
-    name = 'Schemata',
-    version = '0.0.1',
+    name = 'schematax',
+    version = '0.1',
     author = 'Jack Fletcher',
     author_email = 'jack.mckayfletcher@plymouth.ac.uk',
-    packages = ['Schemata'],
+    packages = ['schematax'],
     url = 'https://github.com/iSTB/python-schemata',
-    license = 'LICENSE.txt',
+    license = 'LICENSE',
     keywords=['schemata', 'schema', 'genetic algorithms', 'GAs', 'complete lattice', 'meet', 'join'],
-    description = 'Python library for all things schemata related',
+    description = 'A python package for all things schemata related',
     long_description = open('README.rst').read(),
     install_requires=['graphviz'],
 )
