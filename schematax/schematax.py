@@ -12,11 +12,6 @@ __status__ = "Production"
 This file  contains the schema class and functions over schema such as join, meet and complete.
 """
 
-gp = True
-try:
-    from graphviz import Graph
-except ImportError:
-    gp = False   
  
 class schema(object):
 
@@ -592,6 +587,12 @@ def draw(ss,filename):
     >>> schematax.draw(ss,'test')
     """
 
+    gp = True
+    try:
+        from graphviz import Graph
+    except ImportError:
+        gp = False
+   
     if not gp:
         raise ImportError("graphviz not installed cannot draw. Use sudo pip install graphviz to enable drawing")
     
