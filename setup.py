@@ -2,11 +2,11 @@
 from setuptools import setup
 
 setup(
-    name = 'schemata',
+    name = 'Schemata',
     version = '0.0.1',
     author = 'Jack Fletcher',
     author_email = 'jack.mckayfletcher@plymouth.ac.uk',
-    packages = ['schemata'],
+    packages = ['Schemata'],
     url = 'https://github.com/iSTB/python-schemata',
     license = 'LICENSE.txt',
     keywords=['schemata', 'schema', 'genetic algorithms', 'GAs', 'complete lattice', 'meet', 'join'],

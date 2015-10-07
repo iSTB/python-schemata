@@ -37,7 +37,7 @@ This package runs under Python 2.7 and 3.3+, use pip_ to install:
 
 .. code:: bash
 
-    $ pip install schemata
+    $ pip install Schemata
 
 This will also install the graphviz_ package from PyPI as
 required dependencies.
@@ -54,9 +54,9 @@ Basic schema operations:
 
 .. code-block:: python
 
-    >>> import schemata
+    >>> import Schemata
 
-    >>> s = schemata.schema('10*1') #makes a schema
+    >>> s = Schemata.schema('10*1') #makes a schema
 
     >>> s
     10*1
@@ -67,7 +67,7 @@ Basic schema operations:
     >>> s.get_defining_length()
     3
 
-    >>> s2 = schemata.schema('1**1') #makes another schema
+    >>> s2 = Schemata.schema('1**1') #makes another schema
 
     >>> s <= s2 
     True
@@ -78,34 +78,34 @@ Basic schema operations:
     >>> s == s2
     False
  
-    >>> schemata.meet(s,s2)
+    >>> Schemata.meet(s,s2)
     10*1
 
-    >>> schemata.join(s,s2)
+    >>> Schemata.join(s,s2)
     1**1
 
-    >>> s3 = schemata.schema('00*1')
+    >>> s3 = Schemata.schema('00*1')
     
-    >>> schemata.supremum([s,s2,s3])
+    >>> Schemata.supremum([s,s2,s3])
     ***1
 
-    >>> schemata.infimum([s,s2,s3])
+    >>> Schemata.infimum([s,s2,s3])
     e                               #e stands for the empty schema
 
 Schematic completion and drawing the schematic lattice:
 
 .. code-block:: python
     
-    >>> import schemata
+    >>> import Schemata
     
     >>> xs = ['111', '011', '001']
     
-    >>> ss = schemata.complete(xs) #performing schematic completion 
+    >>> ss = Schemata.complete(xs) #performing schematic completion 
     
     >>> ss
     [111, 011, 001, *11, **1, 0*1, e] #e stands for the empty schema
 
-    >>> schemata.draw(ss,'my_lattice') #draws the schematic lattice of ss and saves it as my_lattice.pdf 
+    >>> Schemata.draw(ss,'my_lattice') #draws the schematic lattice of ss and saves it as my_lattice.pdf 
     
 
 The image produced here:
