@@ -6,3 +6,4 @@ log
 *.sw*
 dist
 *.egg-info
+.pypirc
