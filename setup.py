@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name = 'schematax',
-    version = '0.1.2',
+    version = '0.1.3',
     author = 'Jack Fletcher',
     author_email = 'jack.mckayfletcher@plymouth.ac.uk',
     packages=find_packages(),
