@@ -42,8 +42,8 @@ This package runs under Python 2.7 and 3.3+, use pip_ to install:
 This will also install the graphviz_ package from PyPI as
 required dependencies.
 
-Rendering lattice graphs depends on the `Graphviz software`_. Make sure its
-``dot`` executable is on your systems' path.
+**Important**: Drawing the the schematic lattice uses `Graphviz software`_. Make sure it
+is installed and ``dot`` executable is on your systems' path.
 
 
 Quickstart
