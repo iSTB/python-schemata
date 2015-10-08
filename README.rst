@@ -154,19 +154,19 @@ Schemata is distributed under the `MIT license`_.
 .. |--| unicode:: U+2013
 
 
-.. |PyPI version| image:: https://img.shields.io/pypi/v/concepts.svg
-    :target: https://pypi.python.org/pypi/concepts
+.. |PyPI version| image:: https://img.shields.io/pypi/v/schematax.svg
+    :target: https://pypi.python.org/pypi/schematax
     :alt: Latest PyPI Version
-.. |License| image:: https://img.shields.io/pypi/l/concepts.svg
+.. |License| image:: https://img.shields.io/pypi/l/schematax.svg
     :target: https://pypi.python.org/pypi/concepts
     :alt: License
-.. |Supported Python| image:: https://img.shields.io/pypi/pyversions/concepts.svg
-    :target: https://pypi.python.org/pypi/concepts
+.. |Supported Python| image:: https://img.shields.io/pypi/pyversions/schematax.svg
+    :target: https://pypi.python.org/pypi/schematax
     :alt: Supported Python Versions
-.. |Format| image:: https://img.shields.io/pypi/format/concepts.svg
+.. |Format| image:: https://img.shields.io/pypi/format/schematax.svg
     :target: https://pypi.python.org/pypi/concepts
     :alt: Format
-.. |Downloads| image:: https://img.shields.io/pypi/dm/concepts.svg
-    :target: https://pypi.python.org/pypi/concepts
+.. |Downloads| image:: https://img.shields.io/pypi/dm/schematax.svg
+    :target: https://pypi.python.org/pypi/schematax
     :alt: Downloads
 
