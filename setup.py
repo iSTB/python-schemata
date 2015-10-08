@@ -1,5 +1,14 @@
 # -*- coding:utf-8 -*-
 from setuptools import setup, find_packages
+import io, os
+from rst_cleaner import yield_sphinx_only_markup
+
+def read_text_lines(fname):
+    with io.open(os.path.join('.', fname)) as fd:
+        return fd.readlines()
+
+readme_lines = read_text_lines('README.rst')
+
 
 setup(
     name = 'schematax',
@@ -11,6 +20,6 @@ setup(
     license = 'LICENSE.txt',
     keywords=['schemata', 'schema', 'genetic algorithms', 'GAs', 'complete lattice', 'meet', 'join'],
     description = 'A python package for all things schemata related',
-    long_description = open('README.rst').read(),
+    long_description = ''.join(yield_sphinx_only_markup(readme_lines)),
     install_requires=['graphviz'],
 )
