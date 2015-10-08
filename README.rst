@@ -23,11 +23,10 @@ Links
 -----
 
 - GitHub:https://github.com/iSTB/python-schemata
-- PyPI: http://pypi.python.org/pypi/concepts
-- Documentation: http://concepts.readthedocs.org
+- PyPI: http://pypi.python.org/pypi/schematax
 - Changelog: http://concepts.readthedocs.org/en/latest/changelog.html
 - Issue Tracker: https://github.com/iSTB/python-schemata/issues
-- Download: http://pypi.python.org/pypi/concepts#downloads
+- Download: http://pypi.python.org/pypi/schematax#downloads
 
 
 Installation
