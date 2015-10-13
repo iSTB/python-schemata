@@ -21,7 +21,7 @@ forms a `Complete Lattice`_.
 Links
 -----
 
-- GitHub:https://github.com/iSTB/python-schemata
+- GitHub: https://github.com/iSTB/python-schemata
 - PyPI: http://pypi.python.org/pypi/schematax
 - Issue Tracker: https://github.com/iSTB/python-schemata/issues
 - Download: http://pypi.python.org/pypi/schematax#downloads
