@@ -2,4 +2,4 @@ include LICENSE.txt
 include README.rst
 include example.py
 include rst_cleaner.py
-
+recursive-include docs *
