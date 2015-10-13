@@ -18,7 +18,6 @@ returns all schema which make subsets of the words in S.
 Whats more given the partial ordering over schemata, the schematic completion of S
 forms a `Complete Lattice`_.      
 
-
 Links
 -----
 
@@ -54,7 +53,7 @@ Basic schema operations:
 
     >>> import schematax
 
-    >>> s = schematax.schema('10*1') #makes a schema
+    >>> s = schematax.schema('10*1') 
 
     >>> s
     10*1
@@ -65,8 +64,7 @@ Basic schema operations:
     >>> s.get_defining_length()
     3
 
-    >>> s2 = schematax.schema('1**1') #makes another schema
-
+    >>> s2 = schematax.schema('1**1') 
     >>> s <= s2 
     True
 
@@ -88,7 +86,7 @@ Basic schema operations:
     ***1
 
     >>> schematax.infimum([s,s2,s3])
-    e                               #e stands for the empty schema
+    e                               
 
 Schematic completion and drawing the schematic lattice:
 
@@ -98,12 +96,12 @@ Schematic completion and drawing the schematic lattice:
     
     >>> xs = ['111', '011', '001']
     
-    >>> ss = schematax.complete(xs) #performing schematic completion 
+    >>> ss = schematax.complete(xs) 
     
     >>> ss
-    [111, 011, 001,``*11``, ``**1``, ``0*1``, e] #e stands for the empty schema
+    [111, 011, 001,*11, **1, 0*1, e]
 
-    >>> schematax.draw(ss,'my_lattice') #draws the schematic lattice of ss and saves it as my_lattice.pdf 
+    >>> schematax.draw(ss,'my_lattice') 
     
 
 The image produced here:

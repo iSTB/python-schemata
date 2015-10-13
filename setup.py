@@ -12,7 +12,7 @@ readme_lines = read_text_lines('README.rst')
 
 setup(
     name = 'schematax',
-    version = '0.1.5',
+    version = '0.1.6',
     author = 'Jack Fletcher',
     author_email = 'jack.mckayfletcher@plymouth.ac.uk',
     packages=find_packages(),
