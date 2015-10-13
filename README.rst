@@ -1,5 +1,5 @@
 schematax
-========
+=========
 
 |PyPI version| |License| |Supported Python| |Format| |Downloads|
 
@@ -101,7 +101,7 @@ Schematic completion and drawing the schematic lattice:
     >>> ss = schematax.complete(xs) #performing schematic completion 
     
     >>> ss
-    [111, 011, 001, *11, **1, 0*1, e] #e stands for the empty schema
+    [111, 011, 001,``*11``, ``**1``, ``0*1``, e] #e stands for the empty schema
 
     >>> schematax.draw(ss,'my_lattice') #draws the schematic lattice of ss and saves it as my_lattice.pdf 
     
