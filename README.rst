@@ -45,6 +45,7 @@ Or
 Download the package from here, go to the python-schema directory and run:
 
 .. code:: bash
+
     $ python setup.py install 
 
 **Important**: Drawing the the schematic lattice uses `Graphviz software`_. Make sure it
