@@ -70,6 +70,7 @@ class schema(object):
         return meet(self, other) == self
 
 
+
     def __lt__(self,other):
         
         if type(other) != type(self) and type(other) != str:
@@ -230,7 +231,22 @@ class schema(object):
 
         self.alphabet = alpha
 
+    def is_instance(self,string):
+        """
+        checks if the input, string is an instance of this schema.
+        example: '1100' is an instance of the schema '11**'
+        """
 
+        
+        if not(type(string) == str or type(string) == type(self)):
+            raise ValueError("is_instance must take a str or schema as input")
+
+
+        if type(string) == str:
+                string = schema(string)
+
+        return string <= self
+       
 #    def expansion(self):
 #        """ 
 #        Expands the schema.
