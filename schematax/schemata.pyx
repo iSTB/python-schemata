@@ -16,7 +16,8 @@ class schema(object):
     The schema class.
     """
     def __init__(self, string=''):
-
+        self.fit = 0
+        self.instances = 0
         if type(string) == type(self):
             self.string = string.string
             self.alphabet = string.alphabet 
@@ -512,13 +513,35 @@ def complete_naive(base):
 
 
 
-def complete(base):
+def complete(base,func=None):
     """
     Faster schematic complettion. 
     """
-    schemata = __to_schema(list(set(base)))
 
     c = 0
+
+    schemata = __to_schema(list(set(base)))
+    if func:
+        schemata = __to_schema(list(set(base)))
+        for s in schemata:
+            s.fit = func(s.string)
+            s.instances = 1.0
+        c = 0
+        for i in schemata:
+            for j in schemata[c+1:]:
+                x = join(i,j)
+                if x not in schemata:
+                    x.fit += i.fit + j.fit
+                    x.instances += i.instances + j.instances
+                    schemata.append(x)
+            c +=1
+        for s in schemata:
+            s.fit /= s.instances
+        return schemata+[schema()]
+
+
+
+
     for i in schemata:
         for j in schemata[c+1:]:
             x = join(i,j)
