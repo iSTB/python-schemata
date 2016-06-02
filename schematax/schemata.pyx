@@ -15,16 +15,12 @@ class schema(object):
     """
     The schema class.
     """
-    def __init__(self, string=''):
+    def __init__(self, str string=''):
         self.fit = 0
         self.instances = 0
-        if type(string) == type(self):
-            self.string = string.string
-            self.alphabet = string.alphabet 
-            
-        else:
-            self.string = string
-            self.alphabet = []
+        
+        self.string = string
+        self.alphabet = []
 
     def __str__(self):
 
@@ -32,6 +28,9 @@ class schema(object):
             return "e"
 
         return self.string
+
+    def __hash__(self):
+        return hash(self.string)
 
     def __repr__(self):
 
@@ -61,8 +60,7 @@ class schema(object):
         if type(other) != type(self) and type(other) != str:
             raise TypeError("Cannot call >= on type " + str(type(self)) +
                             " and " + str(type(other)))
-        return self.__ge__(other) and self != other
-
+        return join(self, other) == self and self.string != other.string
 
     def __le__(self, other):
 
@@ -72,15 +70,13 @@ class schema(object):
 
         return meet(self, other) == self
 
-
-
     def __lt__(self,other):
         
         if type(other) != type(self) and type(other) != str:
             raise TypeError("Cannot call >= on type " + str(type(self)) +
                             " and " + str(type(other)))
         
-        return self.__le__(other) and self != other
+        return meet(self, other) == self and self.string != other.string
 
     def __eq__(self, other):
 
@@ -102,11 +98,24 @@ class schema(object):
         return self.string != other.string
 
     def __cmp__(self,other):
-            if self == other:
+
+        if type(other) != type(self) and type(other) != str:
+            raise TypeError("Cannot call == on type " + str(type(self)) +
+                            " and " + str(type(other)))
+        if type(other) == str:
+            if self.string == other:
                 return 0
-            if self < other:
+            elif meet(self,other) == self:
                 return -1
-            if self > other:
+            elif join(self,other) == self:
+                return 1
+
+        else:
+            if self.string == other.string:
+                return 0
+            elif meet(self,other) == self:
+                return -1
+            elif join(self,other) == self:
                 return 1
 
 
@@ -348,7 +357,7 @@ def __to_schema(xs):
     return new
 
 
-def join(s1,s2):
+def join(s1, s2):
     """
     Returns the join of schema s1 and s2. 
 
@@ -383,11 +392,16 @@ def join(s1,s2):
         return s1
     
 
+    cdef st1
+    cdef st2 
+    cdef str new
 
+    st1 = s1.string
+    st2 = s2.string 
     new = ''
-    for i in xrange(len(s1)):
-        if s1[i] == s2[i]:
-            new +=s1[i] 
+    for i in xrange(len(st1)):
+        if st1[i] == st2[i]:
+            new +=st1[i] 
         else:
             new+='*'
 
@@ -537,10 +551,8 @@ def complete(base,func=None):
             c +=1
         for s in schemata:
             s.fit /= s.instances
+
         return schemata+[schema()]
-
-
-
 
     for i in schemata:
         for j in schemata[c+1:]:
@@ -550,33 +562,37 @@ def complete(base,func=None):
         c +=1
 
     return schemata+[schema()]
-
-def complete_fast(base):
+def complete_fast(list base):
     """
     Fastest schematic completion.
     WARNING: not guaranteed to return evert scheamta.
     """
-    schemata = __to_schema(list(set(base)))
 
+    cdef int c
+    cdef int e
+    cdef list schemata
+    cdef list b
+    cdef set found 
     c = 0
-    t = 0
-    l = len(base)
-    for i in schemata:
-        found = False
-        for j in schemata[c+1:]:
-            x = join(i,j)
-            if x not in schemata:
-                found = True
-                schemata.append(x)
-        c +=1
-        if found == False:
-            t+=1
+    schemata = (__to_schema(list(set(base))))
+    b = (__to_schema(list(set(base))))
 
-        if t >= l:
-            break
+    l = len(schemata)
+
+    found = set([])
+    for i in b:
+        e = len(schemata)
+        for j in schemata[c+1:e]:
+            x = join(i,j)
+            if x != i and x != j:
+                if x not in found:
+                    found.add(x)
+                    schemata.append(x)
+     
+        c +=1
+
 
     return schemata+[schema()]
-
 
 
 
@@ -584,6 +600,7 @@ def complete_fast(base):
 
 
 def __complete(base):
+
     new = []
     for i in base:
         for j in base:
