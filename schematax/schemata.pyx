@@ -1,4 +1,4 @@
-__author__ = "Jack McKay Fletcher"
+__author__ = "Jack McKay Fletcher, Jade Goodyear"
 __copyright__ = "Copyright 2015, Plymouth University "
 __credits__ = ["Thomas Wenneker"]
 __license__ = "MIT"
@@ -9,6 +9,7 @@ __status__ = "Production"
 from itertools import chain, combinations
 import random 
 from timeit import default_timer as timer
+#import networkx as nx
 import numpy as np
 class schema(object):
 
@@ -164,7 +165,6 @@ class schema(object):
         >>> s.get_defining_length(s)
         >>> 3
         """
-
         start = 0
         last = 0
 
@@ -392,10 +392,10 @@ def join(s1, s2):
         return s1
     
 
-    cdef st1
-    cdef st2 
+    cdef str st1
+    cdef str st2 
     cdef str new
-
+    cdef int i
     st1 = s1.string
     st2 = s2.string 
     new = ''
@@ -406,8 +406,6 @@ def join(s1, s2):
             new+='*'
 
     return schema(new)  
-
-
 
 
 def meet(s1,s2):
@@ -526,14 +524,9 @@ def complete_naive(base):
     return new
 
 
-
-def complete(base,func=None):
-    """
-    Faster schematic complettion. 
-    """
-
+'''
+def complete_old(base,func=None):
     c = 0
-
     schemata = __to_schema(list(set(base)))
     if func:
         schemata = __to_schema(list(set(base)))
@@ -562,12 +555,14 @@ def complete(base,func=None):
         c +=1
 
     return schemata+[schema()]
-def complete_fast(list base):
+'''
+
+
+
+def complete(list base, func=None,str draw = None):
     """
     Fastest schematic completion.
-    WARNING: not guaranteed to return evert scheamta.
     """
-
     cdef int c
     cdef int e
     cdef list schemata
@@ -578,7 +573,14 @@ def complete_fast(list base):
     b = (__to_schema(list(set(base))))
 
     l = len(schemata)
-
+    
+    if func:
+        for s in schemata:
+            s.fit = func(s.string)
+            s.instances = 1.0
+        for s in b:
+            s.fit = func(s.string)
+            s.instances = 1.0
     found = set([])
     for i in b:
         e = len(schemata)
@@ -586,35 +588,44 @@ def complete_fast(list base):
             x = join(i,j)
             if x != i and x != j:
                 if x not in found:
+                    if func:
+                        x.fit += i.fit + j.fit 
+                        x.instances += i.instances + j.instances
                     found.add(x)
                     schemata.append(x)
-     
         c +=1
+    if func:
+        for s in schemata:
+            s.fit /= s.instances
+    emp = schema() 
+    return schemata+[emp]
 
+def blends(list base):
+    """
+    Fastest schematic completion.
+    """
+    cdef int c
+    cdef int e
+    cdef list schemata
+    cdef list b
+    cdef set found 
+    c = 0
+    schemata = (__to_schema(list(set(base))))
+    b = (__to_schema(list(set(base))))
 
-    return schemata+[schema()]
-
-
-
-
-
-
-def __complete(base):
-
-    new = []
-    for i in base:
-        for j in base:
-            if i != j:
-                x = join(i,j)
-                if x not in base+new:
-                    new.append(x)
-    if new == []:
-        if '' not in base:
-            return base + ['']
-        else:  
-            return base
-
-    else: return base+__complete(new)
+    l = len(schemata)
+    
+    found = set(schemata)
+    for i in b:
+        e = len(schemata)
+        for j in schemata[c+1:e]:
+            x = meet(i,j)
+            if x != i and x != j:
+                if x not in found:
+                    found.add(x)
+                    schemata.append(x)
+        c +=1
+    return schemata
 
 
 def is_lower_n(s1,s2,xs):
@@ -647,7 +658,7 @@ def is_lower_n(s1,s2,xs):
         return False #When s1 is bigger than s2 then s1 cannot be a lower neighbour of s2
 
 
-    new = [x for x in xs if x != s1 and x != s2]
+    new = [x for x in xs if x != s1 and x != s2 and x <= s2]
     for i in new:
         if i >= s1 and i <= s2: 
             return False
@@ -714,10 +725,10 @@ def draw(ss,filename):
 
     dot = Graph()
 
-    for s in ss:
+    for s in ss:                        #creating each node
         dot.node(str(s),str(s))
 
-    for s in ss:
+    for s in ss:                        #for each node, draw edges to it's lower neigbourghs
         ln = get_lower_ns(s,ss)
         for l in ln:
             dot.edge(str(s),str(l))
